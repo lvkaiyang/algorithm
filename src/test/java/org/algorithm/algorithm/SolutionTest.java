@@ -35,4 +35,17 @@ public class SolutionTest {
 
         Assert.assertTrue(res);
     }
+
+    @Test
+    public void productExceptSelf() {
+        int[] nums = new int[]{1, 2, 3, 4};
+        int[] res = solution.productExceptSelf(nums);
+
+        Assert.assertArrayEquals(new int[]{24, 12, 8, 6}, res);
+
+        nums = new int[]{2, 3, 8};
+        res = solution.productExceptSelf(nums);
+
+        Assert.assertArrayEquals(new int[]{24, 16, 6}, res);
+    }
 }

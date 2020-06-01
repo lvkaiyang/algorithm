@@ -50,4 +50,38 @@ public class Solution {
 
         return up == down && right == left || direction != 0; // 重复执行，只要最终不是初始方向，就还是会成环
     }
+
+    /*
+    给定n个整数的数组nums，其中n> 1，返回一个数组输出，使得output [i]等于nums的所有除了nums [i]的元素的乘积。
+
+    在没有除和O(n)时间内解决
+     */
+    public int[] productExceptSelf(int[] nums) {
+        // write your code here
+        if (nums == null) return null;
+        if (nums.length == 0) return nums;
+
+        int[] left_multi = new int[nums.length], right_multi = new int[nums.length];
+
+        left_multi[0] = nums[0];
+        right_multi[nums.length - 1] = nums[nums.length - 1];
+
+        for (int i = 1; i < nums.length; i++)
+            left_multi[i] = left_multi[i - 1] * nums[i];
+
+        for (int i = nums.length - 2; i > -1; i--)
+            right_multi[i] = right_multi[i + 1] * nums[i];
+
+        for (int i = 0; i < nums.length; i++) {
+            if (i == 0) {
+                nums[i] = right_multi[i + 1];
+            } else if (i == nums.length - 1) {
+                nums[i] = left_multi[i - 1];
+            } else {
+                nums[i] = left_multi[i - 1] * right_multi[i + 1];
+            }
+        }
+
+        return nums;
+    }
 }
