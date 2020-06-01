@@ -30,5 +30,9 @@ public class SolutionTest {
         res = solution.isRobotBounded("GG");
 
         Assert.assertFalse(res);
+
+        res = solution.isRobotBounded("GL");
+
+        Assert.assertTrue(res);
     }
 }

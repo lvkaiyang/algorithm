@@ -16,6 +16,38 @@ public class Solution {
      */
     public boolean isRobotBounded(String instructions) {
         // write your code here
+        if (instructions == null || "".equals(instructions)) return true;
 
+        int up = 0, down = 0, right = 0, left = 0;
+
+        int idx = 0, direction = 0; // direction: up = 0, right = 1, down = 2, left = 3;
+        while (idx < instructions.length()) {
+            char instruction = instructions.charAt(idx);
+
+            if (instruction == 'G') {
+                switch (direction) {
+                    case 0:
+                        up++;
+                        break;
+                    case 1:
+                        right++;
+                        break;
+                    case 2:
+                        down++;
+                        break;
+                    case 3:
+                        left++;
+                        break;
+                }
+            } else if (instruction == 'L') {
+                direction = direction - 1 < 0 ? (direction + 3) % 4 : direction - 1;
+            } else if (instruction == 'R') {
+                direction = (direction + 1) % 4;
+            }
+
+            idx++;
+        }
+
+        return up == down && right == left || direction != 0; // 重复执行，只要最终不是初始方向，就还是会成环
     }
 }
