@@ -16,5 +16,6 @@ public class Solution {
      */
     public boolean isRobotBounded(String instructions) {
         // write your code here
+
     }
 }
