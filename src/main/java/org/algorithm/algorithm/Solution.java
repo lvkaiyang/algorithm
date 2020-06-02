@@ -215,6 +215,7 @@ public class Solution {
      */
     public int shortestPath(int[][] targetMap) {
         // Write your code here
+        // 不可达时假设为-1
         if (targetMap == null) return -1;
         if (targetMap.length == 0 || targetMap[0].length == 0) return -1;
 
