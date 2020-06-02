@@ -63,4 +63,15 @@ public class SolutionTest {
 
         Assert.assertEquals(46, res);
     }
+
+    @Test
+    public void getModifiedArray() {
+        int[] res = solution.getModifiedArray(5, new int[][]{
+                {1, 3, 2},
+                {2, 4, 3},
+                {1, 2, -2}
+        });
+
+        Assert.assertArrayEquals(new int[]{0, 0, 3, 5, 3}, res);
+    }
 }

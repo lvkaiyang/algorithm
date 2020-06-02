@@ -1,6 +1,9 @@
 package org.algorithm.algorithm;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
+import java.util.List;
 
 public class Solution {
 
@@ -155,5 +158,58 @@ public class Solution {
             res = (res + sum) % ((int) Math.pow(10, 9) + 7);
 
         return res;
+    }
+
+    /*
+    假设你有一个长度为n的数组，数组的所有元素初始化为0，并且给定k个更新操作。
+
+    每个更新操作表示为一个三元组：[startIndex, endIndex, inc]。
+
+    这个更新操作给子数组 A[startIndex ... endIndex]（包括startIndex和endIndex）中的每一个元素增加 inc。
+
+    返回执行k个更新操作后的新数组。
+     */
+    public int[] getModifiedArray(int length, int[][] updates) {
+        // Write your code here
+        if (length < 1) return null;
+
+        int[] res = new int[length];
+
+        if (updates == null) return res;
+        if (updates.length == 0 || updates[0].length == 0) return res;
+
+        List<getModifiedArrayInterval> points = new ArrayList<>();
+
+        for (int[] update : updates) {
+            points.add(new getModifiedArrayInterval(update[0], update[2]));
+            points.add(new getModifiedArrayInterval(update[1] + 1, -update[2]));
+        }
+
+        points.sort(Comparator.comparingInt(p -> p.idx));
+
+        int sum = 0;
+        int curr_idx = 0;
+        for (int i = 0; i < points.size(); i++) {
+            getModifiedArrayInterval curr = points.get(i);
+            Arrays.fill(res, curr_idx, curr.idx, sum);
+
+            sum += curr.inc;
+
+            while (i + 1 < points.size() && points.get(i + 1).idx == curr.idx)
+                sum += points.get(i++ + 1).inc;
+
+            curr_idx = curr.idx;
+        }
+
+        return res;
+    }
+
+    private static class getModifiedArrayInterval {
+        int idx, inc;
+
+        public getModifiedArrayInterval(int idx, int inc) {
+            this.idx = idx;
+            this.inc = inc;
+        }
     }
 }
