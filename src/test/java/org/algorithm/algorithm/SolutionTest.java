@@ -48,4 +48,19 @@ public class SolutionTest {
 
         Assert.assertArrayEquals(new int[]{24, 16, 6}, res);
     }
+
+    @Test
+    public void knightDialer() {
+        int res = solution.knightDialer(1);
+
+        Assert.assertEquals(10, res);
+
+        res = solution.knightDialer(2);
+
+        Assert.assertEquals(20, res);
+
+        res = solution.knightDialer(3);
+
+        Assert.assertEquals(46, res);
+    }
 }
