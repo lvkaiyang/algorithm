@@ -1,9 +1,9 @@
 package org.algorithm.algorithm;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.List;
+import org.algorithm.algorithm.structures.GetModifiedArrayInterval;
+import org.algorithm.algorithm.structures.ShortestPathPoint;
+
+import java.util.*;
 
 public class Solution {
 
@@ -178,38 +178,75 @@ public class Solution {
         if (updates == null) return res;
         if (updates.length == 0 || updates[0].length == 0) return res;
 
-        List<getModifiedArrayInterval> points = new ArrayList<>();
+        List<GetModifiedArrayInterval> points = new ArrayList<>();
 
         for (int[] update : updates) {
-            points.add(new getModifiedArrayInterval(update[0], update[2]));
-            points.add(new getModifiedArrayInterval(update[1] + 1, -update[2]));
+            points.add(new GetModifiedArrayInterval(update[0], update[2]));
+            points.add(new GetModifiedArrayInterval(update[1] + 1, -update[2]));
         }
 
-        points.sort(Comparator.comparingInt(p -> p.idx));
+        points.sort(Comparator.comparingInt(p -> p.getIdx()));
 
         int sum = 0;
         int curr_idx = 0;
         for (int i = 0; i < points.size(); i++) {
-            getModifiedArrayInterval curr = points.get(i);
-            Arrays.fill(res, curr_idx, curr.idx, sum);
+            GetModifiedArrayInterval curr = points.get(i);
+            Arrays.fill(res, curr_idx, curr.getIdx(), sum);
 
-            sum += curr.inc;
+            sum += curr.getInc();
 
-            while (i + 1 < points.size() && points.get(i + 1).idx == curr.idx)
-                sum += points.get(i++ + 1).inc;
+            while (i + 1 < points.size() && points.get(i + 1).getIdx() == curr.getIdx())
+                sum += points.get(i++ + 1).getInc();
 
-            curr_idx = curr.idx;
+            curr_idx = curr.getIdx();
         }
 
         return res;
     }
 
-    private static class getModifiedArrayInterval {
-        int idx, inc;
+    /*
+    给定表示地图上坐标的2D数组，地图上只有值0,1,2.0表示可以通过，1表示不可通过，2表示目标位置。
 
-        public getModifiedArrayInterval(int idx, int inc) {
-            this.idx = idx;
-            this.inc = inc;
+    从坐标[0,0]开始，你只能上，下，左，右移动。找到可以到达目的地的最短路径，并返回路径的长度。
+
+    1.地图一定存在且不为空，并且只存在一个目的地
+
+    2.保证targetMap[0][0] = 0targetMap[0][0]=0
+     */
+    public int shortestPath(int[][] targetMap) {
+        // Write your code here
+        if (targetMap == null) return -1;
+        if (targetMap.length == 0 || targetMap[0].length == 0) return -1;
+
+        int m = targetMap.length, n = targetMap[0].length, step = 0;
+        int[] dx = new int[]{0, 0, 1, -1};
+        int[] dy = new int[]{1, -1, 0, 0};
+        boolean[][] visited = new boolean[m][n];
+
+        Queue<ShortestPathPoint> queue = new LinkedList<>();
+        queue.offer(new ShortestPathPoint(0, 0, 0));
+        visited[0][0] = true;
+
+        while (!queue.isEmpty()) {
+            int size = queue.size();
+            step++;
+            for (int i = 0; i < size; i++) {
+                ShortestPathPoint curr = queue.poll();
+                for (int j = 0; j < 4; j++) {
+                    int new_x = curr.getX() + dx[j];
+                    int new_y = curr.getY() + dy[j];
+
+                    boolean in_bound = new_x > -1 && new_x < n && new_y > -1 && new_y < m;
+                    if (in_bound && !visited[new_y][new_x] && targetMap[new_y][new_x] != 1) {
+                        queue.offer(new ShortestPathPoint(new_x, new_y, targetMap[new_y][new_x]));
+                        visited[new_y][new_x] = true;
+                        if (targetMap[new_y][new_x] == 2)
+                            return step;
+                    }
+                }
+            }
         }
+
+        return -1;
     }
 }

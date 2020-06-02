@@ -74,4 +74,29 @@ public class SolutionTest {
 
         Assert.assertArrayEquals(new int[]{0, 0, 3, 5, 3}, res);
     }
+
+    @Test
+    public void shortestPath() {
+        int[][] targetMap = new int[][]{
+                {0, 0, 0},
+                {0, 0, 1},
+                {0, 0, 2}
+        };
+
+        int res = solution.shortestPath(targetMap);
+
+        Assert.assertEquals(4, res);
+
+        targetMap = new int[][]{
+                {0, 1},
+                {0, 1},
+                {0, 0},
+                {0, 2}
+        };
+
+        res = solution.shortestPath(targetMap);
+
+        Assert.assertEquals(4, res);
+
+    }
 }
