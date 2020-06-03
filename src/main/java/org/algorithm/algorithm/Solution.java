@@ -1,7 +1,7 @@
 package org.algorithm.algorithm;
 
-import org.algorithm.algorithm.structures.GetModifiedArrayInterval;
-import org.algorithm.algorithm.structures.ShortestPathPoint;
+import org.algorithm.algorithm.structures.custom.GetModifiedArrayInterval;
+import org.algorithm.algorithm.structures.custom.ShortestPathPoint;
 
 import java.util.*;
 

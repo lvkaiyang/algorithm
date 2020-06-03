@@ -1,4 +1,4 @@
-package org.algorithm.algorithm.structures;
+package org.algorithm.algorithm.structures.custom;
 
 /**
  * @author KaiyangLyu
