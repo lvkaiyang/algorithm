@@ -185,7 +185,7 @@ public class Solution {
             points.add(new GetModifiedArrayInterval(update[1] + 1, -update[2]));
         }
 
-        points.sort(Comparator.comparingInt(p -> p.getIdx()));
+        points.sort(Comparator.comparingInt(GetModifiedArrayInterval::getIdx));
 
         int sum = 0;
         int curr_idx = 0;
@@ -249,5 +249,61 @@ public class Solution {
         }
 
         return -1;
+    }
+
+    /*
+    珂珂喜欢吃香蕉。这里有 N 堆香蕉，第 i 堆中有 piles[i] 根香蕉。警卫已经离开了，将在 H 小时后回来。
+
+    珂珂可以决定她吃香蕉的速度 K （单位：根/小时）。每个小时，她将会选择一堆香蕉，从中吃掉 K 根。
+
+    如果这堆香蕉少于 K 根，她将吃掉这堆的所有香蕉，然后这一小时内不会再吃更多的香蕉。
+
+    珂珂喜欢慢慢吃，但仍然想在警卫回来前吃掉所有的香蕉。
+
+    返回她可以在 H 小时内吃掉所有香蕉的最小速度 K（K 为整数）。
+
+    1 <= piles.length <= 10^4
+
+    piles.length <= H <= 10^9
+
+    1 <= piles[i] <= 10^9
+     */
+    public int minEatingSpeed(int[] piles, int H) {
+        // Write your code here
+        int K = -1;
+        if (piles == null) return K;
+        if (piles.length == 0 || piles.length > (int) Math.pow(10, 4)) return K;
+        if (H < piles.length || H > (int) Math.pow(10, 9)) return K;
+
+        int max_k = Integer.MIN_VALUE, min_k = Integer.MAX_VALUE;
+        for (int pile : piles) {
+            if (pile < 1 || pile > (int) Math.pow(10, 9)) return K;
+            max_k = Math.max(max_k, pile);
+            min_k = Math.min(min_k, pile);
+        }
+
+        int start = 1, end = max_k;
+        while (start + 1 < end) {
+            int mid = start + (end - start) / 2;
+            if (minEatingSpeed_helper(mid, piles) <= H) {
+                end = mid;
+            } else {
+                start = mid;
+            }
+        }
+
+        if (minEatingSpeed_helper(end, piles) <= H) K = end;
+        if (minEatingSpeed_helper(start, piles) <= H) K = start;
+
+        return K;
+    }
+
+    private int minEatingSpeed_helper(int K, int[] piles) {
+        int hours = 0;
+
+        for (int pile : piles)
+            hours += (int) Math.ceil((double) pile / K);
+
+        return hours;
     }
 }

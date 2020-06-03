@@ -97,6 +97,33 @@ public class SolutionTest {
         res = solution.shortestPath(targetMap);
 
         Assert.assertEquals(4, res);
+    }
 
+    @Test
+    public void minEatingSpeed() {
+        int[] piles = new int[]{3, 6, 7, 11};
+        int H = 8;
+
+        int res = solution.minEatingSpeed(piles, H);
+
+        Assert.assertEquals(4, res);
+
+        piles = new int[]{30, 11, 23, 4, 20};
+        H = 5;
+
+        res = solution.minEatingSpeed(piles, H);
+
+        Assert.assertEquals(30, res);
+
+        piles = new int[]{
+                332484035, 524908576, 855865114, 632922376, 222257295, 690155293,
+                112677673, 679580077, 337406589, 290818316, 877337160, 901728858,
+                679284947, 688210097, 692137887, 718203285, 629455728, 941802184
+        };
+        H = 823855818;
+
+        res = solution.minEatingSpeed(piles, H);
+
+        Assert.assertEquals(14, res);
     }
 }
