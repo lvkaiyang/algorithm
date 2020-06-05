@@ -1,5 +1,6 @@
 package org.algorithm.algorithm;
 
+import org.algorithm.algorithm.structures.basic.TreeNode;
 import org.algorithm.algorithm.structures.custom.GetModifiedArrayInterval;
 import org.algorithm.algorithm.structures.custom.ShortestPathPoint;
 
@@ -368,5 +369,51 @@ public class Solution {
         }
 
         return true;
+    }
+
+    /*
+    1203. 寻找BST的modes
+
+    给定具有重复项的二叉搜索树（BST），找到给定BST中的所有modes（最频繁出现的元素）。
+
+    在这里假设一个BST定义如下：
+
+    节点的左子树仅包含键小于或等于父节点的节点。
+    节点的右子树仅包含键大于或等于父节点的节点。
+    左右子树也必须是二叉搜索树。
+
+    1. 如果树有多个modes，您可以按任何顺序返回它们。
+     */
+    public int[] findMode(TreeNode root) {
+        // write your code here
+        if (root == null) return new int[0];
+
+        HashMap<Integer, Integer> map = new HashMap<>();
+        findMode_helper(root, map);
+
+        int max = 0;
+        for (Map.Entry<Integer, Integer> entry : map.entrySet())
+            max = Math.max(max, entry.getValue());
+
+        List<Integer> list = new ArrayList<>();
+        for (Map.Entry<Integer, Integer> entry : map.entrySet())
+            if (entry.getValue() == max)
+                list.add(entry.getKey());
+
+        int[] res = new int[list.size()];
+        int idx = 0;
+        for (int i : list)
+            res[idx++] = i;
+
+        return res;
+    }
+
+    private void findMode_helper(TreeNode root, HashMap<Integer, Integer> map) {
+        if (root == null) return;
+
+        findMode_helper(root.left, map);
+        findMode_helper(root.right, map);
+
+        map.put(root.val, map.getOrDefault(root.val, 0) + 1);
     }
 }

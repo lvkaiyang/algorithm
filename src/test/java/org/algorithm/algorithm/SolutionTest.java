@@ -1,5 +1,7 @@
 package org.algorithm.algorithm;
 
+import org.algorithm.algorithm.structures.basic.TreeNode;
+import org.algorithm.algorithm.utils.TreeNodeUtil;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -161,5 +163,20 @@ public class SolutionTest {
         res = solution.isBipartite(graph);
 
         Assert.assertTrue(res);
+    }
+
+    @Test
+    public void findMode() {
+        TreeNode root = TreeNodeUtil.deserialize("{1,#,2,2}");
+
+        int[] res = solution.findMode(root);
+
+        Assert.assertArrayEquals(new int[]{2}, res);
+
+        root = TreeNodeUtil.deserialize("{-2,-2,-2}");
+
+        res = solution.findMode(root);
+
+        Assert.assertArrayEquals(new int[]{-2}, res);
     }
 }
