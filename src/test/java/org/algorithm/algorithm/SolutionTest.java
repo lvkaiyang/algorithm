@@ -179,4 +179,19 @@ public class SolutionTest {
 
         Assert.assertArrayEquals(new int[]{-2}, res);
     }
+
+    @Test
+    public void wiggleMaxLength() {
+        int[] nums = new int[]{1, 7, 4, 9, 2, 5};
+
+        int res = solution.wiggleMaxLength(nums);
+
+        Assert.assertEquals(6, res);
+
+        nums = new int[]{1, 17, 5, 10, 13, 15, 10, 5, 16, 8};
+
+        res = solution.wiggleMaxLength(nums);
+
+        Assert.assertEquals(7, res);
+    }
 }

@@ -416,4 +416,30 @@ public class Solution {
 
         map.put(root.val, map.getOrDefault(root.val, 0) + 1);
     }
+
+    /*
+    1164. 摆动序列
+
+    如果连续数字之间的差严格地在正和负之间交替，则这样的数字序列称为摆动序列。
+
+    第一个差值（如果存在）可以是正的也可以是负的。 少于两个元素的序列通常是摆动序列。
+
+    例如，[1,7,4,9,2,5]是一个摆动序列，因为连续数字的差(6,-3,5,-7,3)交替为正和负。
+
+    相反，[1,4,7,2,5]和[1,7,4,5,5]不是摆动序列，第一个是因为它的前两个连续数字的差是正的，而第二个是因为它的最后一个连续数字的差零。
+
+    给定一个整数序列，返回作为摆动序列的最长子序列的长度。 通过从原始序列中删除一些元素（和0）来获得子序列，使剩余元素保持其原始顺序。
+     */
+    public int wiggleMaxLength(int[] nums) {
+        // Write your code here
+        if (nums.length < 2) return nums.length;
+
+        int up = 1, down = 1;
+        for (int i = 1; i < nums.length; i++) {
+            if (nums[i] > nums[i - 1]) up = down + 1;
+            if (nums[i] < nums[i - 1]) down = up + 1;
+        }
+
+        return Math.max(up, down);
+    }
 }
