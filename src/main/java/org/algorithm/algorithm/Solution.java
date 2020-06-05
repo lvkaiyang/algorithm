@@ -18,8 +18,8 @@ public class Solution {
     机器人执行顺序给出的指令，一直重复执行。
     当且仅当平面中存在一个使机器人永远不会离开环时，才返回true。
 
-    1 <= instructions.length <= 100
-    instructions[i] 属于 {'G', 'L', 'R'}
+    1. 1 <= instructions.length <= 100
+    2. instructions[i] 属于 {'G', 'L', 'R'}
      */
     public boolean isRobotBounded(String instructions) {
         // write your code here
@@ -220,7 +220,6 @@ public class Solution {
     从坐标[0,0]开始，你只能上，下，左，右移动。找到可以到达目的地的最短路径，并返回路径的长度。
 
     1.地图一定存在且不为空，并且只存在一个目的地
-
     2.保证targetMap[0][0] = 0targetMap[0][0]=0
      */
     public int shortestPath(int[][] targetMap) {
@@ -274,11 +273,9 @@ public class Solution {
 
     返回她可以在 H 小时内吃掉所有香蕉的最小速度 K（K 为整数）。
 
-    1 <= piles.length <= 10^4
-
-    piles.length <= H <= 10^9
-
-    1 <= piles[i] <= 10^9
+    1. 1 <= piles.length <= 10^4
+    2. piles.length <= H <= 10^9
+    3. 1 <= piles[i] <= 10^9
      */
     public int minEatingSpeed(int[] piles, int H) {
         // Write your code here
@@ -317,5 +314,59 @@ public class Solution {
             hours += (int) Math.ceil((double) pile / K);
 
         return hours;
+    }
+
+    /*
+    1031. 图可以被二分么？
+
+    给定一个无向图 graph, 输出 true 当且仅当这个图是可以被二分的（也叫二部图）。
+
+    如果一个图是二部图，则意味着我们可以将图里的点集分为两个独立的子集A和B，并且图中所有的边都是一个端点属于A，另一个端点属于B。
+
+    关于图的表示：graph[i] 为一个列表，表示与节点i有边相连的节点。这个图中一共有 graph.length 个节点，为0到graph.length-1。
+
+    图中没有自边或者重复的边存在，即: graph[i] 中不包含 i, 也不会包含某个点两次。
+
+    1. graph 中包含的总节点数的范围为 [1, 100]。
+    2. graph[i] 只包含范围为 [0, graph.length - 1].中的一些整数。
+    3. graph[i] 不会包含 i 自己或是某个值两次。
+    4. 图是无向的：如果点 j 存在于 graph[i]这个列表里，则 i 也会存在于 graph[j]这个列表里
+     */
+    public boolean isBipartite(int[][] graph) {
+        // Write your code here
+        if (graph == null) return true;
+        if (graph.length < 2) return true;
+
+        HashSet<Integer> A = new HashSet<>();
+        HashSet<Integer> B = new HashSet<>();
+
+        for (int i = 0; i < graph.length; i++) {
+            if (graph[i].length == 0) continue;
+            if (!A.contains(i) && !B.contains(i)) {
+                A.add(i);
+                for (int next : graph[i])
+                    B.add(next);
+            } else if (A.contains(i) && B.contains(i)) {
+                return false;
+            } else if (A.contains(i)) {
+                for (int next : graph[i]) {
+                    if (A.contains(next)) return false;
+                    B.add(next);
+                }
+
+            } else if (B.contains(i)) {
+                for (int next : graph[i]) {
+                    if (B.contains(next)) return false;
+                    A.add(next);
+                }
+            }
+        }
+
+        for (int i = 0; i < graph.length; i++) {
+            if (graph[i].length == 0) continue;
+            if (A.contains(i) && B.contains(i)) return false;
+        }
+
+        return true;
     }
 }
