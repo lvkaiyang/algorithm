@@ -442,4 +442,31 @@ public class Solution {
 
         return Math.max(up, down);
     }
+
+    /*
+    1195. 找出树中每行的最大值
+
+    你需要找到在一棵二叉树中，每一行的最大值
+     */
+    public List<Integer> largestValues(TreeNode root) {
+        // write your code here
+        List<Integer> res = new ArrayList<>();
+        if (root == null) return res;
+
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.offer(root);
+
+        while (!queue.isEmpty()) {
+            int size = queue.size(), max = Integer.MIN_VALUE;
+            for (int i = 0; i < size; i++) {
+                TreeNode curr = queue.poll();
+                max = Math.max(max, curr.val);
+                if (curr.left != null) queue.offer(curr.left);
+                if (curr.right != null) queue.offer(curr.right);
+            }
+            res.add(max);
+        }
+
+        return res;
+    }
 }

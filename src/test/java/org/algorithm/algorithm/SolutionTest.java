@@ -7,6 +7,9 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.Arrays;
+import java.util.List;
+
 public class SolutionTest {
     private static Solution solution;
 
@@ -193,5 +196,20 @@ public class SolutionTest {
         res = solution.wiggleMaxLength(nums);
 
         Assert.assertEquals(7, res);
+    }
+
+    @Test
+    public void largestValues() {
+        TreeNode root = TreeNodeUtil.deserialize("{1,3,2,5,3,#,9}");
+
+        List<Integer> res = solution.largestValues(root);
+
+        Assert.assertEquals(Arrays.asList(1, 3, 9), res);
+
+        root = TreeNodeUtil.deserialize("{1,2,3,4,5,6,#,#,7}");
+
+        res = solution.largestValues(root);
+
+        Assert.assertEquals(Arrays.asList(1, 3, 6, 7), res);
     }
 }
