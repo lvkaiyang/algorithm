@@ -494,4 +494,73 @@ public class Solution {
         res = Math.max(res + num, res * num);
         return calcMaxValue_helper(idx + 1, res, str);
     }
+
+    /*
+    906. 对数组变换排序
+
+    给定一个已排序的整数数组和整数a,b,c。
+
+    对数组中的每个元素xx应用二次函数f(x)=ax^2+bx+c
+
+    返回的数组必须是有序的。
+
+    1. 期望时间复杂度：O(n)O(n)
+     */
+    public int[] sortTransformedArray(int[] nums, int a, int b, int c) {
+        // Write your code here
+        if (nums == null) return null;
+        int[] res = new int[nums.length];
+        if (nums.length == 0) return res;
+        if (a == 0) {
+            if (b < 0) {
+                for (int i = nums.length - 1; i > -1; i--)
+                    res[nums.length - 1 - i] = b * nums[i] + c;
+            } else {
+                for (int i = 0; i < nums.length; i++)
+                    res[i] = b * nums[i] + c;
+            }
+            return res;
+        }
+
+        double axis = -b / (double) (2 * a);
+
+        int start_idx = 0, idx = 0;
+        while (nums[start_idx] < axis)
+            start_idx++;
+
+        if (a > 0) {
+            int left = start_idx - 1, right = start_idx;
+            while (left > -1 && right < nums.length) {
+                if (axis - nums[left] < nums[right] - axis) {
+                    res[idx++] = nums[left--];
+                } else {
+                    res[idx++] = nums[right++];
+                }
+            }
+            while (left > -1)
+                res[idx++] = nums[left--];
+
+            while (right < nums.length)
+                res[idx++] = nums[right++];
+        } else {
+            int left = 0, right = nums.length - 1;
+            while (left < start_idx && right >= start_idx) {
+                if (axis - nums[left] < nums[right] - axis) {
+                    res[idx++] = nums[right--];
+                } else {
+                    res[idx++] = nums[left++];
+                }
+            }
+            while (left < start_idx)
+                res[idx++] = nums[left++];
+
+            while (right >= start_idx)
+                res[idx++] = nums[right--];
+        }
+
+        for (int i = 0; i < res.length; i++)
+            res[i] = a * res[i] * res[i] + b * res[i] + c;
+
+        return res;
+    }
 }

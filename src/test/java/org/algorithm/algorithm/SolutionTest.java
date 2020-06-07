@@ -227,4 +227,25 @@ public class SolutionTest {
 
         Assert.assertEquals(73, res);
     }
+
+    @Test
+    public void sortTransformedArray() {
+        int[] nums = new int[]{-4, -2, 2, 4};
+        int a = 1;
+        int b = 3;
+        int c = 5;
+
+        int[] res = solution.sortTransformedArray(nums, a, b, c);
+
+        Assert.assertArrayEquals(new int[]{3, 9, 15, 33}, res);
+
+        nums = new int[]{-4, -2, 2, 4};
+        a = -1;
+        b = 3;
+        c = 5;
+
+        res = solution.sortTransformedArray(nums, a, b, c);
+
+        Assert.assertArrayEquals(new int[]{-23, -5, 1, 7}, res);
+    }
 }
