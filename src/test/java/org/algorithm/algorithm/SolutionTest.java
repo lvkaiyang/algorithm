@@ -212,4 +212,19 @@ public class SolutionTest {
 
         Assert.assertEquals(Arrays.asList(1, 3, 6, 7), res);
     }
+
+    @Test
+    public void calcMaxValue() {
+        String str = "01231";
+
+        int res = solution.calcMaxValue(str);
+
+        Assert.assertEquals(10, res);
+
+        str = "891";
+
+        res = solution.calcMaxValue(str);
+
+        Assert.assertEquals(73, res);
+    }
 }

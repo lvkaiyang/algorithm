@@ -469,4 +469,29 @@ public class Solution {
 
         return res;
     }
+
+    /*
+    719. 计算最大值
+
+    给一个字符串类型的数字, 写一个方法去找到最大值, 你可以在任意两个数字间加 + 或 *
+     */
+    public int calcMaxValue(String str) {
+        // write your code here
+        int res = 0;
+        if (str == null || "".equals(str)) return res;
+
+        res = calcMaxValue_helper(0, 0, str);
+
+        return res;
+    }
+
+    private int calcMaxValue_helper(int idx, int res, String str) {
+        if (idx == str.length()) return res;
+
+        char c = str.charAt(idx);
+        int num = c - '0';
+
+        res = Math.max(res + num, res * num);
+        return calcMaxValue_helper(idx + 1, res, str);
+    }
 }
