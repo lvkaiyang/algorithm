@@ -504,7 +504,7 @@ public class Solution {
 
     返回的数组必须是有序的。
 
-    1. 期望时间复杂度：O(n)O(n)
+    1. 期望时间复杂度：O(n)
      */
     public int[] sortTransformedArray(int[] nums, int a, int b, int c) {
         // Write your code here
@@ -562,5 +562,42 @@ public class Solution {
             res[i] = a * res[i] * res[i] + b * res[i] + c;
 
         return res;
+    }
+
+    /*
+    937. 可以完成的题目数量
+
+    给定一个正整数n，表示一场比赛的时间，比赛中题目的难度是递增的，你每完成一个题目，就要花费k × i的时间，
+
+    其中k是输入的一个系数，i表示题目的序号(从1开始)。根据这些信息，返回这场比赛中，你最多能完成几个题目。
+
+    1. 1<=n<=2^61-1 1<=k<=50
+     */
+    public long canAccept(long n, int k) {
+        // Write your code here
+        if (n < 1 || n > Math.pow(2, 61) - 1 || k < 1 || k > 50) return -1;
+
+        double target = n / (double) k;
+
+        long left, right = 2;
+
+        while (right * (1 + right) / 2d < target)
+            right = right << 1;
+
+        left = right >> 1;
+
+        while (left + 1 < right) {
+            long mid = left + (right - left) / 2;
+            if (mid * (1 + mid) / 2d < target) {
+                left = mid;
+            } else {
+                right = mid;
+            }
+        }
+
+        if (right * (1 + right) / 2d <= target) return right;
+        if (left * (1 + left) / 2d <= target) return left;
+
+        return -1;
     }
 }

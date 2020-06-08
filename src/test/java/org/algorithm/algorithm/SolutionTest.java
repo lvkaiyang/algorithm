@@ -248,4 +248,15 @@ public class SolutionTest {
 
         Assert.assertArrayEquals(new int[]{-23, -5, 1, 7}, res);
     }
+
+    @Test
+    public void canAccept() {
+        long res = solution.canAccept(30, 1);
+
+        Assert.assertEquals(7, res);
+
+        res = solution.canAccept(31, 2);
+
+        Assert.assertEquals(5, res);
+    }
 }
