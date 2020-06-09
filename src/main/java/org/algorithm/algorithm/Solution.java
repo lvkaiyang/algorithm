@@ -669,4 +669,56 @@ public class Solution {
 
         return 0;
     }
+
+    /*
+    982. 等差切片
+
+    如果一个数字序列由至少三个元素组成并且任何两个连续元素之间的差值相同，则称为等差数列。
+
+    举个例子，这些是等差数列：
+
+    1, 3, 5, 7, 9
+    7, 7, 7, 7
+    3, -1, -5, -9
+
+    下面的序列不是等差数列：
+
+    1, 1, 2, 5, 7
+
+    给一个由 N 个数组成且下标从 0 开始的数组A。这个数组的一个切片是指任意一个整数对 (P, Q) 且满足 0 <= P < Q < N。
+
+    如果 A 中的一个切片(P, Q) 是等差切片，则需要满足A[P], A[P + 1], ..., A[Q - 1], A[Q] 是等差的。还需要注意的是，这也意味着 P + 1 < Q。
+
+    需要实现的函数应该返回数组 A 中等差切片的数量。
+     */
+    public int numberOfArithmeticSlices(int[] A) {
+        // Write your code here
+        int res = 0;
+        if (A == null) return res;
+        if (A.length < 3) return res;
+
+        int left = 0, right = 2;
+        while (right < A.length) {
+            // 不再是等差数列
+            if (A[right - 1] - A[right - 2] != A[right] - A[right - 1]) {
+                // 开头就不是等差的忽略
+                if (!(left == 0 && right == 2))
+                    /*
+                    数组  [1, 2, 3, 4, 6]         长度 4    结果 (2 + 1)
+                    数组  [1, 2, 3, 4, 5, 6]      长度 5    结果 (3 + 2 + 1)
+                    数组  [1, 2, 3, 4, 5, 6, 7]   长度 6    结果 (4 + 3 + 2 + 1)
+                    (right - left - 1) 首项加末项 (right - left - 2) 项数
+                     */
+                    res += (right - left - 1) * (right - left - 2) / 2;
+                left = right - 1;
+            }
+            right++;
+        }
+
+        // 末尾项是等差的情况
+        if (right - left > 1)
+            res += (right - left - 1) * (right - left - 2) / 2;
+
+        return res;
+    }
 }

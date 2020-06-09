@@ -305,4 +305,19 @@ public class SolutionTest {
 
         Assert.assertEquals(2, res);
     }
+
+    @Test
+    public void numberOfArithmeticSlices() {
+        int[] nums = new int[]{1, 2, 3, 4};
+
+        int res = solution.numberOfArithmeticSlices(nums);
+
+        Assert.assertEquals(3, res);
+
+        nums = new int[]{1, 2, 3};
+
+        res = solution.numberOfArithmeticSlices(nums);
+
+        Assert.assertEquals(1, res);
+    }
 }
