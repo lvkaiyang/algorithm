@@ -1,6 +1,7 @@
 package org.algorithm.algorithm;
 
 import org.algorithm.algorithm.structures.basic.TreeNode;
+import org.algorithm.algorithm.structures.basic.UndirectedGraphNode;
 import org.algorithm.algorithm.structures.custom.GetModifiedArrayInterval;
 import org.algorithm.algorithm.structures.custom.ShortestPathPoint;
 
@@ -632,5 +633,40 @@ public class Solution {
         }
 
         return false;
+    }
+
+    /*
+    814. 无向图中的最短路径
+
+    给定一个无向图, 图中所有边的长度为1, 再选定图中的两个节点, 返回这两个节点之间最短的路径的长度.
+     */
+    public int shortestPath(List<UndirectedGraphNode> graph, UndirectedGraphNode A, UndirectedGraphNode B) {
+        // Write your code here
+        int res = 0;
+        if (graph == null) return res;
+        if (graph.size() == 0) return res;
+        if (A == null || B == null) return res;
+
+        Queue<UndirectedGraphNode> queue = new LinkedList<>();
+        HashSet<UndirectedGraphNode> visited = new HashSet<>();
+
+        queue.offer(A);
+        visited.add(A);
+
+        while (!queue.isEmpty()) {
+            int size = queue.size();
+            res++;
+            for (int i = 0; i < size; i++) {
+                UndirectedGraphNode curr = queue.poll();
+                for (UndirectedGraphNode neighbor : curr.neighbors) {
+                    if (visited.add(neighbor)) {
+                        if (neighbor == B) return res;
+                        queue.offer(neighbor);
+                    }
+                }
+            }
+        }
+
+        return 0;
     }
 }

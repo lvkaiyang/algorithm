@@ -1,7 +1,9 @@
 package org.algorithm.algorithm;
 
 import org.algorithm.algorithm.structures.basic.TreeNode;
+import org.algorithm.algorithm.structures.basic.UndirectedGraphNode;
 import org.algorithm.algorithm.utils.TreeNodeUtil;
+import org.algorithm.algorithm.utils.UndirectedGraphNodeUtil;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -273,5 +275,34 @@ public class SolutionTest {
         res = solution.canPartition(nums);
 
         Assert.assertFalse(res);
+    }
+
+    @Test
+    public void shortestPath_1() {
+        List<UndirectedGraphNode> graph = UndirectedGraphNodeUtil.deserialize("{1,2,4#2,1,4#3,5#4,1,2#5,3}");
+        int label_a = 3, label_b = 5;
+        UndirectedGraphNode A = null, B = null;
+        for (UndirectedGraphNode node : graph) {
+            if (node.label == label_a) A = node;
+            if (node.label == label_b) B = node;
+        }
+
+        int res = solution.shortestPath(graph, A, B);
+
+        Assert.assertEquals(1, res);
+
+        graph = UndirectedGraphNodeUtil.deserialize("{1,2,3,4#2,1,3#3,1#4,1,5#5,4}");
+        label_a = 1;
+        label_b = 5;
+        A = null;
+        B = null;
+        for (UndirectedGraphNode node : graph) {
+            if (node.label == label_a) A = node;
+            if (node.label == label_b) B = node;
+        }
+
+        res = solution.shortestPath(graph, A, B);
+
+        Assert.assertEquals(2, res);
     }
 }
