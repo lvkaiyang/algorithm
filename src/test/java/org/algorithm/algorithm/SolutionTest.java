@@ -1,7 +1,9 @@
 package org.algorithm.algorithm;
 
 import org.algorithm.algorithm.structures.basic.TreeNode;
+import org.algorithm.algorithm.structures.basic.UndirectedGraphNode;
 import org.algorithm.algorithm.utils.TreeNodeUtil;
+import org.algorithm.algorithm.utils.UndirectedGraphNodeUtil;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;

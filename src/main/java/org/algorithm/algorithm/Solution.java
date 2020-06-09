@@ -1,6 +1,7 @@
 package org.algorithm.algorithm;
 
 import org.algorithm.algorithm.structures.basic.TreeNode;
+import org.algorithm.algorithm.structures.basic.UndirectedGraphNode;
 import org.algorithm.algorithm.structures.custom.GetModifiedArrayInterval;
 import org.algorithm.algorithm.structures.custom.ShortestPathPoint;
 
