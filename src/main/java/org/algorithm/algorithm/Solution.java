@@ -600,4 +600,37 @@ public class Solution {
 
         return -1;
     }
+
+    /*
+    588. 划分和相等的子集
+
+    给一 只含有正整数 的 非空 数组, 找到这个数组是否可以划分为 两个 元素和相等的子集。
+
+    1. 所有数组元素不超过100.
+    2. 数组大小不超过200.
+     */
+    public boolean canPartition(int[] nums) {
+        // write your code here
+        if (nums == null) return true;
+        if (nums.length == 0) return true;
+
+        Arrays.sort(nums);
+        int[] sums = new int[nums.length + 1];
+
+        for (int i = 1; i < sums.length; i++) sums[i] = sums[i - 1] + nums[i - 1];
+        if (sums[sums.length - 1] % 2 != 0) return false;
+
+        int left = 0, right = 0, target = sums[sums.length - 1] / 2;
+        while (right < sums.length) {
+            if (sums[right] - sums[left] < target) {
+                right++;
+            } else if (sums[right] - sums[left] == target) {
+                return true;
+            } else {
+                left++;
+            }
+        }
+
+        return false;
+    }
 }

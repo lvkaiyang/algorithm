@@ -259,4 +259,19 @@ public class SolutionTest {
 
         Assert.assertEquals(5, res);
     }
+
+    @Test
+    public void canPartition() {
+        int[] nums = new int[]{1, 5, 11, 5};
+
+        boolean res = solution.canPartition(nums);
+
+        Assert.assertTrue(res);
+
+        nums = new int[]{1, 2, 3, 9};
+
+        res = solution.canPartition(nums);
+
+        Assert.assertFalse(res);
+    }
 }
