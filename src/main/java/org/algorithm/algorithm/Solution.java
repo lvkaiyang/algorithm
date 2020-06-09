@@ -600,4 +600,33 @@ public class Solution {
 
         return -1;
     }
+
+    /*
+    883. 最长连续的1 II
+
+    给出一个二进制数组，在最多翻转一位0的情况下，找到这个数组里最长的连续的1的个数。
+
+    1. 输入数组只含有0 和 1。
+    2. 数组的长度是一个正整数，并且长度不会超过10,000。
+     */
+    public int findMaxConsecutiveOnes(int[] nums) {
+        // write your code here
+        int res = 0;
+        if (nums == null) return res;
+        if (nums.length == 0) return res;
+
+        int left = 0, right = 0, prev_zero_idx = -1;
+        while (right < nums.length) {
+            if (nums[right] == 0) {
+                if (prev_zero_idx != -1) {
+                    res = Math.max(res, right - left);
+                    left = prev_zero_idx + 1;
+                }
+                prev_zero_idx = right;
+            }
+            right++;
+        }
+
+        return res;
+    }
 }
