@@ -602,6 +602,126 @@ public class Solution {
     }
 
     /*
+    588. 划分和相等的子集
+
+    给一 只含有正整数 的 非空 数组, 找到这个数组是否可以划分为 两个 元素和相等的子集。
+
+    1. 所有数组元素不超过100.
+    2. 数组大小不超过200.
+     */
+    public boolean canPartition(int[] nums) {
+        // write your code here
+        if (nums == null) return true;
+        if (nums.length == 0) return true;
+
+        Arrays.sort(nums);
+        int[] sums = new int[nums.length + 1];
+
+        for (int i = 1; i < sums.length; i++) sums[i] = sums[i - 1] + nums[i - 1];
+        if (sums[sums.length - 1] % 2 != 0) return false;
+
+        int left = 0, right = 0, target = sums[sums.length - 1] / 2;
+        while (right < sums.length) {
+            if (sums[right] - sums[left] < target) {
+                right++;
+            } else if (sums[right] - sums[left] == target) {
+                return true;
+            } else {
+                left++;
+            }
+        }
+
+        return false;
+    }
+
+    /*
+    814. 无向图中的最短路径
+
+    给定一个无向图, 图中所有边的长度为1, 再选定图中的两个节点, 返回这两个节点之间最短的路径的长度.
+     */
+    public int shortestPath(List<UndirectedGraphNode> graph, UndirectedGraphNode A, UndirectedGraphNode B) {
+        // Write your code here
+        int res = 0;
+        if (graph == null) return res;
+        if (graph.size() == 0) return res;
+        if (A == null || B == null) return res;
+
+        Queue<UndirectedGraphNode> queue = new LinkedList<>();
+        HashSet<UndirectedGraphNode> visited = new HashSet<>();
+
+        queue.offer(A);
+        visited.add(A);
+
+        while (!queue.isEmpty()) {
+            int size = queue.size();
+            res++;
+            for (int i = 0; i < size; i++) {
+                UndirectedGraphNode curr = queue.poll();
+                for (UndirectedGraphNode neighbor : curr.neighbors) {
+                    if (visited.add(neighbor)) {
+                        if (neighbor == B) return res;
+                        queue.offer(neighbor);
+                    }
+                }
+            }
+        }
+
+        return 0;
+    }
+
+    /*
+    982. 等差切片
+
+    如果一个数字序列由至少三个元素组成并且任何两个连续元素之间的差值相同，则称为等差数列。
+
+    举个例子，这些是等差数列：
+
+    1, 3, 5, 7, 9
+    7, 7, 7, 7
+    3, -1, -5, -9
+
+    下面的序列不是等差数列：
+
+    1, 1, 2, 5, 7
+
+    给一个由 N 个数组成且下标从 0 开始的数组A。这个数组的一个切片是指任意一个整数对 (P, Q) 且满足 0 <= P < Q < N。
+
+    如果 A 中的一个切片(P, Q) 是等差切片，则需要满足A[P], A[P + 1], ..., A[Q - 1], A[Q] 是等差的。还需要注意的是，这也意味着 P + 1 < Q。
+
+    需要实现的函数应该返回数组 A 中等差切片的数量。
+     */
+    public int numberOfArithmeticSlices(int[] A) {
+        // Write your code here
+        int res = 0;
+        if (A == null) return res;
+        if (A.length < 3) return res;
+
+        int left = 0, right = 2;
+        while (right < A.length) {
+            // 不再是等差数列
+            if (A[right - 1] - A[right - 2] != A[right] - A[right - 1]) {
+                // 开头就不是等差的忽略
+                if (!(left == 0 && right == 2))
+                    /*
+                    数组  [1, 2, 3, 4, 6]         长度 4    结果 (2 + 1)
+                    数组  [1, 2, 3, 4, 5, 6]      长度 5    结果 (3 + 2 + 1)
+                    数组  [1, 2, 3, 4, 5, 6, 7]   长度 6    结果 (4 + 3 + 2 + 1)
+                    (right - left - 1) 首项加末项 (right - left - 2) 项数
+                     */
+                    res += (right - left - 1) * (right - left - 2) / 2;
+                left = right - 1;
+            }
+            right++;
+        }
+
+        // 末尾项是等差的情况
+        if (right - left > 1)
+            res += (right - left - 1) * (right - left - 2) / 2;
+
+        return res;
+    }
+
+    /*
     883. 最长连续的1 II
 
     给出一个二进制数组，在最多翻转一位0的情况下，找到这个数组里最长的连续的1的个数。
