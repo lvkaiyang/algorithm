@@ -750,4 +750,46 @@ public class Solution {
 
         return res;
     }
+
+    /*
+    1191. 最长非公共子序列之2
+
+    给定一组字符串，你需要找到这组字符串中最长的非公共子序列。
+
+    最长的非公共子序列被定义为这些字符串之一的最长子序列，并且此子序列不应该是其他字符串的子序列。
+
+    子序列是可以通过删除一些字符而不改变其余元素的顺序从一个序列导出的序列。可以说，任何字符串都是自身的子序列，空字符串是任何字符串的子序列。
+
+    输入将是字符串列表，输出需要是最长的非公共子序列的长度。 如果最长的非公共子序列不存在，则返回-1。
+
+    1. 所有给定的字符串长度不超过10。
+    2. 给定列表的长度将在[2,50]的范围内。
+     */
+    public int findLUSlength(String[] strs) {
+        // write your code here
+        int res = -1;
+        if (strs == null) return res;
+        if (strs.length < 2) return res;
+
+        Arrays.sort(strs, Comparator.comparing(String::length).reversed());
+
+        for (int i = 0; i < strs.length; i++) {
+            boolean is_seq = false;
+            for (int j = 0; j < strs.length && strs[j].length() >= strs[i].length(); j++) {
+                if (j == i) continue;
+                int idx = 0;
+                for (int k = 0; k < strs[j].length(); k++) {
+                    if (strs[j].charAt(k) == strs[i].charAt(idx)) idx++;
+                    if (idx == strs[i].length()) {
+                        is_seq = true;
+                        break;
+                    }
+                }
+                if (is_seq) break;
+            }
+            if (!is_seq) return strs[i].length();
+        }
+
+        return res;
+    }
 }

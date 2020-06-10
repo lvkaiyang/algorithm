@@ -335,4 +335,19 @@ public class SolutionTest {
 
         Assert.assertEquals(3, res);
     }
+
+    @Test
+    public void findLUSlength() {
+        String[] strs = new String[]{"aaa", "acb"};
+
+        int res = solution.findLUSlength(strs);
+
+        Assert.assertEquals(3, res);
+
+        strs = new String[]{"aabbcc", "aabbcc", "cb"};
+
+        res = solution.findLUSlength(strs);
+
+        Assert.assertEquals(2, res);
+    }
 }
