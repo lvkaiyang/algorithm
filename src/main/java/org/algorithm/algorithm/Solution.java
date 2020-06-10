@@ -859,4 +859,39 @@ public class Solution {
 
         return new LongestConsecutive2ResultType(up, down, max);
     }
+
+    /*
+    774. 重复
+
+    所有的DNA由一系列缩写的核苷酸 A, C, G 和 T组成.
+
+    比如; "ACGAATTCCG". 在研究 DNA 时, 有时候鉴别出 DNA 中的重复序列是很有用的.
+
+    写一个函数来找到所有在 DNA 中出现超过一次且长度为 10个字母 的序列(子串).
+     */
+    public List<String> findRepeatedDna(String s) {
+        // write your code here
+        List<String> res = new ArrayList<>();
+        if (s == null || "".equals(s)) return res;
+        if (s.length() < 10) return res;
+
+        HashMap<String, Integer> dna_map = new HashMap<>();
+        int left = 0, right = 0;
+
+        while (right < s.length() + 1) {
+            if (right - left == 10) {
+                String substring = s.substring(left, right);
+                if (dna_map.containsKey(substring) && dna_map.get(substring) == 1) {
+                    dna_map.put(substring, dna_map.get(substring) + 1);
+                    res.add(substring);
+                } else {
+                    dna_map.put(substring, dna_map.getOrDefault(substring, 0) + 1);
+                }
+                left++;
+            }
+            right++;
+        }
+
+        return res;
+    }
 }

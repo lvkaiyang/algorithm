@@ -10,6 +10,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class SolutionTest {
@@ -370,5 +371,26 @@ public class SolutionTest {
         res = solution.longestConsecutive2(root);
 
         Assert.assertEquals(3, res);
+    }
+
+    @Test
+    public void findRepeatedDna() {
+        String s = "AAAAACCCCCAAAAACCCCCCAAAAAGGGTTT";
+
+        List<String> res = solution.findRepeatedDna(s);
+
+        Assert.assertEquals(Arrays.asList("AAAAACCCCC", "CCCCCAAAAA"), res);
+
+        s = "GAGAGAGAGAGA";
+
+        res = solution.findRepeatedDna(s);
+
+        Assert.assertEquals(Collections.singletonList("GAGAGAGAGA"), res);
+
+        s = "AAAAAAAAAAAA";
+
+        res = solution.findRepeatedDna(s);
+
+        Assert.assertEquals(Collections.singletonList("AAAAAAAAAA"), res);
     }
 }
