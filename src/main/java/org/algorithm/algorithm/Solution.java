@@ -865,7 +865,7 @@ public class Solution {
 
     所有的DNA由一系列缩写的核苷酸 A, C, G 和 T组成.
 
-    比如; "ACGAATTCCG". 在研究 DNA 时, 有时候鉴别出 DNA 中的重复序列是很有用的.
+    比如: "ACGAATTCCG". 在研究 DNA 时, 有时候鉴别出 DNA 中的重复序列是很有用的.
 
     写一个函数来找到所有在 DNA 中出现超过一次且长度为 10个字母 的序列(子串).
      */
