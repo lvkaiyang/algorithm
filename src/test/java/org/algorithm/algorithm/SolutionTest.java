@@ -350,4 +350,25 @@ public class SolutionTest {
 
         Assert.assertEquals(2, res);
     }
+
+    @Test
+    public void longestConsecutive2() {
+        TreeNode root = TreeNodeUtil.deserialize("{1,2,0,3}");
+
+        int res = solution.longestConsecutive2(root);
+
+        Assert.assertEquals(4, res);
+
+        root = TreeNodeUtil.deserialize("{3,2,2}");
+
+        res = solution.longestConsecutive2(root);
+
+        Assert.assertEquals(2, res);
+
+        root = TreeNodeUtil.deserialize("{2,#,3,2,#,1}");
+
+        res = solution.longestConsecutive2(root);
+
+        Assert.assertEquals(3, res);
+    }
 }

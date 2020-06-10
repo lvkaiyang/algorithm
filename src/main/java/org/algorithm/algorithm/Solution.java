@@ -3,6 +3,7 @@ package org.algorithm.algorithm;
 import org.algorithm.algorithm.structures.basic.TreeNode;
 import org.algorithm.algorithm.structures.basic.UndirectedGraphNode;
 import org.algorithm.algorithm.structures.custom.GetModifiedArrayInterval;
+import org.algorithm.algorithm.structures.custom.LongestConsecutive2ResultType;
 import org.algorithm.algorithm.structures.custom.ShortestPathPoint;
 
 import java.util.*;
@@ -791,5 +792,71 @@ public class Solution {
         }
 
         return res;
+    }
+
+    /*
+    614. 二叉树的最长连续子序列 II
+
+    给定一棵二叉树，找到最长连续序列(单调且相邻节点值相差为1)路径的长度(节点数)。
+
+    路径起点跟终点可以为二叉树的任意节点。
+     */
+    public int longestConsecutive2(TreeNode root) {
+        // write your code here
+        if (root == null) return 0;
+
+        return longestConsecutive2_helper(root).max;
+    }
+
+    private LongestConsecutive2ResultType longestConsecutive2_helper(TreeNode root) {
+        if (root == null) return new LongestConsecutive2ResultType(0, 0, 0);
+
+        LongestConsecutive2ResultType left = longestConsecutive2_helper(root.left);
+        LongestConsecutive2ResultType right = longestConsecutive2_helper(root.right);
+
+        int up = 1, down = 1, max = 0;
+        if (root.left != null && root.right != null) {
+            if (root.left.val - 1 == root.val) {
+                up = Math.max(up, left.up + 1);
+            }
+            if (root.left.val + 1 == root.val) {
+                down = Math.max(down, left.down + 1);
+            }
+            if (root.right.val - 1 == root.val) {
+                up = Math.max(up, right.up + 1);
+            }
+            if (root.right.val + 1 == root.val) {
+                down = Math.max(down, right.down + 1);
+            }
+            if (root.left.val - 1 == root.val && root.right.val + 1 == root.val) {
+                max = Math.max(max, left.up + right.down + 1);
+            }
+            if (root.right.val - 1 == root.val && root.left.val + 1 == root.val) {
+                max = Math.max(max, right.up + left.down + 1);
+            }
+            max = Math.max(max, left.max);
+            max = Math.max(max, right.max);
+        } else if (root.left != null) {
+            if (root.left.val - 1 == root.val) {
+                up = Math.max(up, left.up + 1);
+            }
+            if (root.left.val + 1 == root.val) {
+                down = Math.max(down, left.down + 1);
+            }
+            max = Math.max(max, left.max);
+        } else if (root.right != null) {
+            if (root.right.val - 1 == root.val) {
+                up = Math.max(up, right.up + 1);
+            }
+            if (root.right.val + 1 == root.val) {
+                down = Math.max(up, right.down + 1);
+            }
+            max = Math.max(max, right.max);
+        }
+
+        max = Math.max(max, up);
+        max = Math.max(max, down);
+
+        return new LongestConsecutive2ResultType(up, down, max);
     }
 }
