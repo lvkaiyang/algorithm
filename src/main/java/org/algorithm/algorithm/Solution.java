@@ -894,4 +894,39 @@ public class Solution {
 
         return res;
     }
+
+    /*
+    843. 数字翻转
+
+    给定一个01构成的数组。你可以翻转1变成0或者反转0变成1。
+
+    请问最少反转多少次可以使得数组满足以下规则：
+
+    1的后面可以是1或者0，而0的后面必须是0。
+
+    1. 数组长度 n <= 100000。
+     */
+    public int flipDigit(int[] nums) {
+        // Write your code here
+        int res = Integer.MAX_VALUE;
+        if (nums == null) return res;
+        if (nums.length == 0) return res;
+
+        // 前i项改成 0 或者 1 的翻转数
+        int[][] dp = new int[2][2];
+
+        for (int i = 1; i < nums.length + 1; i++) {
+            if (nums[i - 1] == 0) {
+                // 0 可以是1或者0的后面数字，取翻转数最小的
+                dp[0][i % 2] = Math.min(dp[0][(i - 1) % 2], dp[1][(i - 1) % 2]);
+                dp[1][i % 2] = dp[1][(i - 1) % 2] + 1;
+            } else if (nums[i - 1] == 1) {
+                // 0 可以是1或者0的后面数字，由 1 改成 0 需要+1并把前面改0翻回1
+                dp[0][i % 2] = Math.min(dp[0][(i - 1) % 2] + 1, dp[1][(i - 1) % 2]);
+                dp[1][i % 2] = dp[1][(i - 1) % 2];
+            }
+        }
+
+        return Math.min(dp[0][nums.length % 2], dp[1][nums.length % 2]);
+    }
 }

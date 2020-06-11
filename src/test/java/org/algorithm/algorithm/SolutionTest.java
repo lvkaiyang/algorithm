@@ -393,4 +393,37 @@ public class SolutionTest {
 
         Assert.assertEquals(Collections.singletonList("AAAAAAAAAA"), res);
     }
+
+    @Test
+    public void flipDigit() {
+        int[] nums = new int[]{1, 0, 0, 1, 1, 1};
+
+        int res = solution.flipDigit(nums);
+
+        Assert.assertEquals(2, res);
+
+        nums = new int[]{1, 0, 1, 0, 1, 0};
+
+        res = solution.flipDigit(nums);
+
+        Assert.assertEquals(2, res);
+
+        nums = new int[]{1, 1, 1, 1, 1, 1, 1, 1, 0, 0};
+
+        res = solution.flipDigit(nums);
+
+        Assert.assertEquals(0, res);
+
+        nums = new int[]{
+                0, 0, 0, 0, 1, 1, 1, 1, 1, 1,
+                0, 0, 0, 0, 1, 0, 0, 1, 1, 1,
+                0, 1, 1, 1, 1, 0, 1, 0, 1, 1,
+                1, 0, 1, 0, 1, 1, 0, 1, 0, 1,
+                1, 1, 1, 0, 0, 0, 1, 0, 0, 0
+        };
+
+        res = solution.flipDigit(nums);
+
+        Assert.assertEquals(18, res);
+    }
 }
