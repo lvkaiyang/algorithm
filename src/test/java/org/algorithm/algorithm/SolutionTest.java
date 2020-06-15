@@ -426,4 +426,35 @@ public class SolutionTest {
 
         Assert.assertEquals(18, res);
     }
+
+    @Test
+    public void threeSumMulti() {
+        int[] A = new int[]{1, 1, 2, 2, 3, 3, 4, 4, 5, 5};
+        int target = 8;
+
+        int res = solution.threeSumMulti(A, target);
+
+        Assert.assertEquals(20, res);
+
+        A = new int[]{1, 1, 2, 2, 2, 2};
+        target = 5;
+
+        res = solution.threeSumMulti(A, target);
+
+        Assert.assertEquals(12, res);
+
+        A = new int[]{0, 2, 0, 0};
+        target = 2;
+
+        res = solution.threeSumMulti(A, target);
+
+        Assert.assertEquals(3, res);
+
+        A = new int[3000];
+        target = 0;
+
+        res = solution.threeSumMulti(A, target);
+
+        Assert.assertEquals(495500972, res);
+    }
 }
