@@ -1090,4 +1090,29 @@ public class Solution {
             searchRange_helper(root.right.left, k1, k2, res);
         }
     }
+
+    /*
+    29. 交叉字符串
+
+    给出三个字符串:s1、s2、s3，判断s3是否由s1和s2交叉构成。
+     */
+    public boolean isInterleave(String s1, String s2, String s3) {
+        // write your code here
+        if (s1 == null && s2 == null) return s3 == null;
+        if (s1 == null || s2 == null) return s3 == null;
+        if (s1.length() + s2.length() != s3.length()) return false;
+
+        int s1_idx = 0, s2_idx = 0;
+        for (char c : s3.toCharArray()) {
+            if (s1_idx < s1.length() && s1.charAt(s1_idx) == c) {
+                s1_idx++;
+            } else if (s2_idx < s2.length() && s2.charAt(s2_idx) == c) {
+                s2_idx++;
+            } else {
+                return false;
+            }
+        }
+
+        return true;
+    }
 }

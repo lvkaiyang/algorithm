@@ -534,4 +534,19 @@ public class SolutionTest {
 
         Assert.assertEquals(Collections.singletonList(41), res);
     }
+
+    @Test
+    public void isInterleave() {
+        boolean res = solution.isInterleave("aabcc", "dbbca", "aadbbcbcac");
+
+        Assert.assertTrue(res);
+
+        res = solution.isInterleave("", "", "1");
+
+        Assert.assertFalse(res);
+
+        res = solution.isInterleave("aabcc", "dbbca", "aadbbbaccc");
+
+        Assert.assertFalse(res);
+    }
 }
