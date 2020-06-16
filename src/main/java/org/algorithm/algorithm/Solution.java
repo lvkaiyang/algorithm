@@ -987,4 +987,67 @@ public class Solution {
 
         return (int) res;
     }
+
+    /*
+    3. 统计数字
+
+    计算数字 k 在 0 到 n 中的出现的次数，k 可能是 0~9 的一个值。
+     */
+    public int digitCounts(int k, int n) {
+        // write your code here
+        int res = 0;
+        if (k < 0 || k > 9) return res;
+        if (n < 10) return n < k ? 0 : 1;
+
+        int[] map = new int[n + 1];
+        map[k] = 1;
+        res++;
+
+        for (int i = 10; i < n + 1; i++) {
+            map[i] = map[i / 10] + (i % 10 == k ? 1 : 0);
+            res += map[i];
+        }
+
+        return res;
+    }
+
+    /*
+    5. 第k大元素
+
+    在数组中找到第 k 大的元素。
+
+    1. 你可以交换数组中的元素的位置
+     */
+    public int kthLargestElement(int n, int[] nums) {
+        // write your code here
+        if (n < 1 || nums == null) return -1;
+        if (n > nums.length) return -1;
+
+        return kthLargestElement_helper(0, nums.length - 1, nums, nums.length - n);
+    }
+
+    private int kthLargestElement_helper(int start, int end, int[] nums, int n) {
+        if (start >= end) return nums[n];
+
+        int left = start, right = end, pivot = nums[start + (end - start) / 2];
+        while (left <= right) {
+            while (left <= right && nums[left] < pivot)
+                left++;
+            while (left <= right && nums[right] > pivot)
+                right--;
+
+            if (left <= right) {
+                int temp = nums[left];
+                nums[left] = nums[right];
+                nums[right] = temp;
+                left++;
+                right--;
+            }
+        }
+
+        if (n >= left) return kthLargestElement_helper(left, end, nums, n);
+        if (n <= right) return kthLargestElement_helper(start, right, nums, n);
+
+        return nums[n];
+    }
 }
