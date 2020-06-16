@@ -495,4 +495,43 @@ public class SolutionTest {
 
         Assert.assertEquals(10904, res);
     }
+
+    @Test
+    public void searchRange() {
+        TreeNode root = TreeNodeUtil.deserialize("{5}");
+
+        List<Integer> res = solution.searchRange(root, 6, 10);
+
+        Assert.assertEquals(Collections.emptyList(), res);
+
+        root = TreeNodeUtil.deserialize("{20,8,22,4,12}");
+
+        res = solution.searchRange(root, 10, 22);
+
+        Assert.assertEquals(Arrays.asList(12, 20, 22), res);
+
+        root = TreeNodeUtil.deserialize("{2,1}");
+
+        res = solution.searchRange(root, 0, 4);
+
+        Assert.assertEquals(Arrays.asList(1, 2), res);
+
+        root = TreeNodeUtil.deserialize("{1,#,2,#,3,#,4,#,5}");
+
+        res = solution.searchRange(root, 2, 4);
+
+        Assert.assertEquals(Arrays.asList(2, 3, 4), res);
+
+        root = TreeNodeUtil.deserialize("{31,11,51,8,#,41,61}");
+
+        res = solution.searchRange(root, 9, 52);
+
+        Assert.assertEquals(Arrays.asList(11, 31, 41, 51), res);
+
+        root = TreeNodeUtil.deserialize("{101,92,#,81,#,75,#,41,#,#,65}");
+
+        res = solution.searchRange(root, 41, 41);
+
+        Assert.assertEquals(Collections.singletonList(41), res);
+    }
 }

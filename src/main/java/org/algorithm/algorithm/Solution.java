@@ -1050,4 +1050,44 @@ public class Solution {
 
         return nums[n];
     }
+
+    /*
+    11. 二叉查找树中搜索区间
+
+    给定一个二叉查找树和范围[k1, k2]。按照升序返回给定范围内的节点值。
+     */
+    public List<Integer> searchRange(TreeNode root, int k1, int k2) {
+        // write your code here
+        List<Integer> res = new ArrayList<>();
+        if (root == null || k1 > k2) return res;
+
+        searchRange_helper(root, k1, k2, res);
+
+        return res;
+    }
+
+    private void searchRange_helper(TreeNode root, int k1, int k2, List<Integer> res) {
+
+        if (root == null) return;
+        if (root.left == null && root.right == null) {
+            if (root.val >= k1 && root.val <= k2)
+                res.add(root.val);
+            return;
+        }
+
+        if (root.left != null && root.left.val >= k1) {
+            searchRange_helper(root.left, k1, k2, res);
+        } else if (root.left != null) {
+            searchRange_helper(root.left.right, k1, k2, res);
+        }
+
+        if (root.val >= k1 && root.val <= k2)
+            res.add(root.val);
+
+        if (root.right != null && root.right.val <= k2) {
+            searchRange_helper(root.right, k1, k2, res);
+        } else if (root.right != null) {
+            searchRange_helper(root.right.left, k1, k2, res);
+        }
+    }
 }
