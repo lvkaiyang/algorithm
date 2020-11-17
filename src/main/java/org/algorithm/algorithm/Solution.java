@@ -1102,17 +1102,37 @@ public class Solution {
         if (s1 == null || s2 == null) return s3 == null;
         if (s1.length() + s2.length() != s3.length()) return false;
 
-        int s1_idx = 0, s2_idx = 0;
-        for (char c : s3.toCharArray()) {
-            if (s1_idx < s1.length() && s1.charAt(s1_idx) == c) {
-                s1_idx++;
-            } else if (s2_idx < s2.length() && s2.charAt(s2_idx) == c) {
-                s2_idx++;
+        boolean[][] dp = new boolean[s1.length() + 1][s2.length() + 1];
+
+        for (int i = 1; i < s1.length() + 1; i++) {
+            if (s3.charAt(i - 1) == s1.charAt(i - 1)) {
+                dp[i][0] = true;
             } else {
-                return false;
+                break;
             }
         }
 
-        return true;
+        for (int i = 1; i < s2.length() + 1; i++) {
+            if (s3.charAt(i - 1) == s2.charAt(i - 1)) {
+                dp[0][i] = true;
+            } else {
+                break;
+            }
+        }
+
+        dp[0][0] = true;
+
+        for (int i = 1; i < s1.length() + 1; i++) {
+            for (int j = 1; j < s2.length() + 1; j++) {
+                char c = s3.charAt(i + j - 1);
+                if (s2.charAt(j - 1) == c) {
+                    dp[i][j] = dp[i][j - 1];
+                } else if (s1.charAt(i - 1) == c) {
+                    dp[i][j] = dp[i - 1][j];
+                }
+            }
+        }
+
+        return dp[s1.length()][s2.length()];
     }
 }
