@@ -553,4 +553,27 @@ public class SolutionTest {
 
         Assert.assertTrue(res);
     }
+
+    @Test
+    public void solveNQueens() {
+        List<List<String>> res = solution.solveNQueens(1);
+
+        Assert.assertEquals(Collections.singletonList(Collections.singletonList("Q")), res);
+
+        res = solution.solveNQueens(4);
+
+        Assert.assertEquals(Arrays.asList(
+                Arrays.asList(
+                        ".Q..",
+                        "...Q",
+                        "Q...",
+                        "..Q."
+                ), Arrays.asList(
+                        "..Q.",
+                        "Q...",
+                        "...Q",
+                        ".Q.."
+                )
+        ), res);
+    }
 }

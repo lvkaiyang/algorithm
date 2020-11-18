@@ -1136,4 +1136,22 @@ public class Solution {
 
         return dp[s1.length()][s2.length()];
     }
+
+    /*
+    33. N皇后问题
+
+    n皇后问题是将n个皇后放置在n*n的棋盘上，皇后彼此之间不能相互攻击(任意两个皇后不能位于同一行，同一列，同一斜线)。
+
+    给定一个整数n，返回所有不同的n皇后问题的解决方案。
+
+    每个解决方案包含一个明确的n皇后放置布局，其中“Q”和“.”分别表示一个女王和一个空位置。
+     */
+    public List<List<String>> solveNQueens(int n) {
+        // write your code here
+        List<List<String>> res = new ArrayList<>();
+
+        if (n < 1) return res;
+
+        return null;
+    }
 }
