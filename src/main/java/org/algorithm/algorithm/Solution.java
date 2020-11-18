@@ -1127,8 +1127,9 @@ public class Solution {
                 char c = s3.charAt(i + j - 1);
                 if (s2.charAt(j - 1) == c) {
                     dp[i][j] = dp[i][j - 1];
-                } else if (s1.charAt(i - 1) == c) {
-                    dp[i][j] = dp[i - 1][j];
+                }
+                if (s1.charAt(i - 1) == c) {
+                    dp[i][j] = dp[i - 1][j] || dp[i][j];
                 }
             }
         }

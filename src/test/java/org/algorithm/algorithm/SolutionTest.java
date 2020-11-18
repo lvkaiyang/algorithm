@@ -548,5 +548,9 @@ public class SolutionTest {
         res = solution.isInterleave("aabcc", "dbbca", "aadbbbaccc");
 
         Assert.assertFalse(res);
+
+        res = solution.isInterleave("aba", "a", "aaba");
+
+        Assert.assertTrue(res);
     }
 }
