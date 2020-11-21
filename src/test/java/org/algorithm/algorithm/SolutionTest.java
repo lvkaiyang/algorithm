@@ -576,4 +576,15 @@ public class SolutionTest {
                 )
         ), res);
     }
+
+    @Test
+    public void totalNQueens() {
+        int res = solution.totalNQueens(1);
+
+        Assert.assertEquals(1, res);
+
+        res = solution.totalNQueens(4);
+
+        Assert.assertEquals(2, res);
+    }
 }

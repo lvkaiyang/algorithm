@@ -1215,4 +1215,74 @@ public class Solution {
             }
         }
     }
+
+    /*
+    34. N皇后问题 II
+
+    根据n皇后问题，现在返回n皇后不同的解决方案的数量而不是具体的放置布局。
+     */
+    public int totalNQueens(int n) {
+        // write your code here
+        if (n < 1) return 0;
+
+        return totalNQueens_helper(n, 0, new boolean[n][n]);
+    }
+
+    private int totalNQueens_helper(
+            int n, int level, boolean[][] conflicts
+    ) {
+
+        int res = 0;
+
+        if (level == n) {
+            return 1;
+        }
+
+        for (int i = 0; i < n; i++) {
+
+            boolean conflict = false;
+
+            for (int j = level - 1; j > -1; j--) {
+                if (conflicts[j][i]) {
+                    conflict = true;
+                    break;
+                }
+            }
+
+            for (int j = level - 1, k = i - 1; j > -1 && k > -1; j--, k--) {
+                if (conflicts[j][k]) {
+                    conflict = true;
+                    break;
+                }
+            }
+
+            for (int j = level - 1, k = i + 1; j > -1 && k < n; j--, k++) {
+                if (conflicts[j][k]) {
+                    conflict = true;
+                    break;
+                }
+            }
+
+            if (!conflict) {
+
+                conflicts[level][i] = true;
+
+                // draw
+                StringBuilder sb = new StringBuilder();
+                for (int j = 0; j < n; j++) {
+                    if (j == i) {
+                        sb.append("Q");
+                    } else {
+                        sb.append(".");
+                    }
+                }
+
+                res += totalNQueens_helper(n, level + 1, conflicts);
+
+                conflicts[level][i] = false;
+            }
+        }
+
+        return res;
+    }
 }
