@@ -1152,6 +1152,67 @@ public class Solution {
 
         if (n < 1) return res;
 
-        return null;
+        solveNQueens_helper(n, 0, new boolean[n][n], new ArrayList<>(), res);
+
+        return res;
+    }
+
+    private void solveNQueens_helper(
+            int n, int level, boolean[][] conflicts, List<String> subList, List<List<String>> res
+    ) {
+
+        if (level == n) {
+            res.add(new ArrayList<>(subList));
+            return;
+        }
+
+        for (int i = 0; i < n; i++) {
+
+            boolean conflict = false;
+
+            for (int j = level - 1; j > -1; j--) {
+                if (conflicts[j][i]) {
+                    conflict = true;
+                    break;
+                }
+            }
+
+            for (int j = level - 1, k = i - 1; j > -1 && k > -1; j--, k--) {
+                if (conflicts[j][k]) {
+                    conflict = true;
+                    break;
+                }
+            }
+
+            for (int j = level - 1, k = i + 1; j > -1 && k < n; j--, k++) {
+                if (conflicts[j][k]) {
+                    conflict = true;
+                    break;
+                }
+            }
+
+            if (!conflict) {
+
+                conflicts[level][i] = true;
+
+                // draw
+                StringBuilder sb = new StringBuilder();
+                for (int j = 0; j < n; j++) {
+                    if (j == i) {
+                        sb.append("Q");
+                    } else {
+                        sb.append(".");
+                    }
+                }
+
+                subList.add(sb.toString());
+
+                solveNQueens_helper(n, level + 1, conflicts, subList, res);
+
+                subList.remove(subList.size() - 1);
+
+                conflicts[level][i] = false;
+            }
+        }
     }
 }
