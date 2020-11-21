@@ -1267,16 +1267,6 @@ public class Solution {
 
                 conflicts[level][i] = true;
 
-                // draw
-                StringBuilder sb = new StringBuilder();
-                for (int j = 0; j < n; j++) {
-                    if (j == i) {
-                        sb.append("Q");
-                    } else {
-                        sb.append(".");
-                    }
-                }
-
                 res += totalNQueens_helper(n, level + 1, conflicts);
 
                 conflicts[level][i] = false;
