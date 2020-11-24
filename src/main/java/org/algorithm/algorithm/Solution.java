@@ -1288,7 +1288,7 @@ public class Solution {
         // write your code here
         if (head == null) return null;
 
-        ListNode dummy = new ListNode(-1), prev = null, temp = null, target = dummy;
+        ListNode dummy = new ListNode(-1), prev = null, temp, target = dummy;
         dummy.next = head;
 
         while (head != null && m != 1) {
