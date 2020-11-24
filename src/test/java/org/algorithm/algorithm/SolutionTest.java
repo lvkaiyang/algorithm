@@ -1,7 +1,9 @@
 package org.algorithm.algorithm;
 
+import org.algorithm.algorithm.structures.basic.ListNode;
 import org.algorithm.algorithm.structures.basic.TreeNode;
 import org.algorithm.algorithm.structures.basic.UndirectedGraphNode;
+import org.algorithm.algorithm.utils.ListNodeUtil;
 import org.algorithm.algorithm.utils.TreeNodeUtil;
 import org.algorithm.algorithm.utils.UndirectedGraphNodeUtil;
 import org.junit.After;
@@ -586,5 +588,43 @@ public class SolutionTest {
         res = solution.totalNQueens(4);
 
         Assert.assertEquals(2, res);
+    }
+
+    @Test
+    public void reverseBetween() {
+        ListNode head = ListNodeUtil.deserialize("1->2->3->4->5->null");
+        ListNode res = solution.reverseBetween(head, 2, 4);
+
+        Assert.assertEquals("1->4->3->2->5->null", ListNodeUtil.serialize(res));
+
+        head = ListNodeUtil.deserialize("1->2->3->4->5->null");
+        res = solution.reverseBetween(head, 2, 2);
+
+        Assert.assertEquals("1->2->3->4->5->null", ListNodeUtil.serialize(res));
+
+        head = ListNodeUtil.deserialize("1->2->3->4->5->null");
+        res = solution.reverseBetween(head, 2, 3);
+
+        Assert.assertEquals("1->3->2->4->5->null", ListNodeUtil.serialize(res));
+
+        head = ListNodeUtil.deserialize("1->2->3->4->5->null");
+        res = solution.reverseBetween(head, 1, 3);
+
+        Assert.assertEquals("3->2->1->4->5->null", ListNodeUtil.serialize(res));
+
+        head = ListNodeUtil.deserialize("1->2->3->4->5->null");
+        res = solution.reverseBetween(head, 1, 5);
+
+        Assert.assertEquals("5->4->3->2->1->null", ListNodeUtil.serialize(res));
+
+        head = ListNodeUtil.deserialize("1->2->3->4->5->null");
+        res = solution.reverseBetween(head, 5, 5);
+
+        Assert.assertEquals("1->2->3->4->5->null", ListNodeUtil.serialize(res));
+
+        head = ListNodeUtil.deserialize("1->2->3->4->5->null");
+        res = solution.reverseBetween(head, 3, 5);
+
+        Assert.assertEquals("1->2->5->4->3->null", ListNodeUtil.serialize(res));
     }
 }
