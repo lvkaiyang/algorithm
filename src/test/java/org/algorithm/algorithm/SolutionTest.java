@@ -9,6 +9,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -586,5 +587,36 @@ public class SolutionTest {
         res = solution.totalNQueens(4);
 
         Assert.assertEquals(2, res);
+    }
+
+    @Test
+    public void IfIntersect() {
+
+        double[] position = new double[]{0, 0, 2.5, 3, 2, 0.5, 0, 2};
+
+        int res = solution.IfIntersect(position);
+
+        Assert.assertEquals(1, res);
+
+        position = new double[]{0, 0, 2, 5, 0, 1, 0, 2};
+
+        res = solution.IfIntersect(position);
+
+        Assert.assertEquals(-1, res);
+    }
+
+    @Test
+    public void maxTwoSubArrays() {
+        List<Integer> nums = new ArrayList<>(Arrays.asList(1, 3, -1, 2, -1, 2));
+
+        Assert.assertEquals(7, solution.maxTwoSubArrays(nums));
+
+        nums = new ArrayList<>(Arrays.asList(5, 4));
+
+        Assert.assertEquals(9, solution.maxTwoSubArrays(nums));
+
+        nums = new ArrayList<>(Arrays.asList(0, -1));
+
+        Assert.assertEquals(-1, solution.maxTwoSubArrays(nums));
     }
 }

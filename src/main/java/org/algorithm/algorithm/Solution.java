@@ -1275,4 +1275,82 @@ public class Solution {
 
         return res;
     }
+
+    /*
+    21. 移动的圆
+
+    The problem will give the center coordinates (x, y) and radius r of the two circles A and B.
+
+    Then the problem give you a point P ,and move the center of circle A to the point P along a straight line.
+
+    Will the circle A intersect with the circle B during the move?
+
+    (The moving process includes the starting point and an ending point)
+
+    If it they intersect return 1, otherwise return -1.
+
+    1. The radius of both circles does not exceed 10000.
+
+    2. The absolute value of the abscissa and ordinate values does not exceed 10000.
+
+    3. The list in input represent [X_A, Y_A, R_A, X_B, Y_B, R_B, X_P, Y_P].
+     */
+    public int IfIntersect(double[] position) {
+
+        if (position == null || position.length != 8) return -1;
+
+        double X_A = position[0], Y_A = position[1], R_A = position[2];
+        double X_B = position[3], Y_B = position[4], R_B = position[5];
+        double X_P = position[6], Y_P = position[7];
+
+        /*
+        思路是A半径和B半径之和为大圆半径，以B为圆心，X^2 + Y^2 = R^2，的解即为A圆心的运动轨迹，
+
+        求此方程与直线方程AP的解，转化为求二次方程解，根据解个数判断是否相交（相离为-1，相交或相切为1）
+         */
+
+        return -1;
+    }
+
+    /*
+    42. 最大子数组 II
+
+    给定一个整数数组，找出两个 不重叠 子数组使得它们的和最大。
+
+    每个子数组的数字在数组中的位置应该是连续的。
+
+    返回最大的和。
+
+    1. 子数组最少包含一个数
+     */
+    public int maxTwoSubArrays(List<Integer> nums) {
+        // write your code here
+        if (nums == null || nums.size() < 1) return Integer.MIN_VALUE;
+
+        int size = nums.size();
+        int[] right = new int[size], left = new int[size];
+
+        left[size - 1] = nums.get(size - 1);
+        right[0] = nums.get(0);
+
+        // 先找前i + 1个数中最大和（i为终点）以及后size - i - 2个数中最大和（i为起始点）
+        // 分别为right和left
+        for (int i = 0; i < size - 1; i++) {
+            right[i + 1] = Math.max(right[i] + nums.get(i + 1), nums.get(i + 1));
+            left[size - i - 2] = Math.max(left[size - i - 1] + nums.get(size - i - 2), nums.get(size - i - 2));
+        }
+
+        // 打擂台，找到前i个数中最大和以及后size - i - 1个数中最大和（动态规划）
+        for (int i = 1; i < size; i++) {
+            right[i] = Math.max(right[i], right[i - 1]);
+            left[size - i - 1] = Math.max(left[size - i - 1], left[size - i]);
+        }
+
+        // 前i个最大和 + 后i + 1个最大和
+        int res = Integer.MIN_VALUE;
+        for (int i = 0; i < size - 1; i++)
+            res = Math.max(res, left[i + 1] + right[i]);
+
+        return res;
+    }
 }
