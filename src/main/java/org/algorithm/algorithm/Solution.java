@@ -1,5 +1,6 @@
 package org.algorithm.algorithm;
 
+import org.algorithm.algorithm.structures.basic.ListNode;
 import org.algorithm.algorithm.structures.basic.TreeNode;
 import org.algorithm.algorithm.structures.basic.UndirectedGraphNode;
 import org.algorithm.algorithm.structures.custom.GetModifiedArrayInterval;
@@ -1352,5 +1353,42 @@ public class Solution {
             res = Math.max(res, left[i + 1] + right[i]);
 
         return res;
+    }
+
+    /*
+    36. 翻转链表 II
+
+    翻转链表中第m个节点到第n个节点的部分
+
+    1. m，n满足1 ≤ m ≤ n ≤ 链表长度
+     */
+    public ListNode reverseBetween(ListNode head, int m, int n) {
+        // write your code here
+        if (head == null) return null;
+
+        ListNode dummy = new ListNode(-1), prev = null, temp, target = dummy;
+        dummy.next = head;
+
+        while (head != null && m != 1) {
+            target = head;
+            m--;
+            n--;
+            head = head.next;
+        }
+
+        ListNode curr = head;
+
+        while (head != null && n != 0) {
+            temp = head.next;
+            head.next = prev;
+            prev = head;
+            head = temp;
+            n--;
+        }
+
+        curr.next = head;
+        target.next = prev;
+
+        return dummy.next;
     }
 }
