@@ -1093,6 +1093,42 @@ public class Solution {
     }
 
     /*
+    21. 移动的圆
+
+    The problem will give the center coordinates (x, y) and radius r of the two circles A and B.
+
+    Then the problem give you a point P ,and move the center of circle A to the point P along a straight line.
+
+    Will the circle A intersect with the circle B during the move?
+
+    (The moving process includes the starting point and an ending point)
+
+    If it they intersect return 1, otherwise return -1.
+
+    1. The radius of both circles does not exceed 10000.
+
+    2. The absolute value of the abscissa and ordinate values does not exceed 10000.
+
+    3. The list in input represent [X_A, Y_A, R_A, X_B, Y_B, R_B, X_P, Y_P].
+     */
+    public int IfIntersect(double[] position) {
+
+        if (position == null || position.length != 8) return -1;
+
+        double X_A = position[0], Y_A = position[1], R_A = position[2];
+        double X_B = position[3], Y_B = position[4], R_B = position[5];
+        double X_P = position[6], Y_P = position[7];
+
+        /*
+        思路是A半径和B半径之和为大圆半径，以B为圆心，X^2 + Y^2 = R^2，的解即为A圆心的运动轨迹，
+
+        求此方程与直线方程AP的解，转化为求二次方程解，根据解个数判断是否相交（相离为-1，相交或相切为1）
+         */
+
+        return -1;
+    }
+
+    /*
     29. 交叉字符串
 
     给出三个字符串:s1、s2、s3，判断s3是否由s1和s2交叉构成。
@@ -1278,39 +1314,40 @@ public class Solution {
     }
 
     /*
-    21. 移动的圆
+    36. 翻转链表 II
 
-    The problem will give the center coordinates (x, y) and radius r of the two circles A and B.
+    翻转链表中第m个节点到第n个节点的部分
 
-    Then the problem give you a point P ,and move the center of circle A to the point P along a straight line.
-
-    Will the circle A intersect with the circle B during the move?
-
-    (The moving process includes the starting point and an ending point)
-
-    If it they intersect return 1, otherwise return -1.
-
-    1. The radius of both circles does not exceed 10000.
-
-    2. The absolute value of the abscissa and ordinate values does not exceed 10000.
-
-    3. The list in input represent [X_A, Y_A, R_A, X_B, Y_B, R_B, X_P, Y_P].
+    1. m，n满足1 ≤ m ≤ n ≤ 链表长度
      */
-    public int IfIntersect(double[] position) {
+    public ListNode reverseBetween(ListNode head, int m, int n) {
+        // write your code here
+        if (head == null) return null;
 
-        if (position == null || position.length != 8) return -1;
+        ListNode dummy = new ListNode(-1), prev = null, temp, target = dummy;
+        dummy.next = head;
 
-        double X_A = position[0], Y_A = position[1], R_A = position[2];
-        double X_B = position[3], Y_B = position[4], R_B = position[5];
-        double X_P = position[6], Y_P = position[7];
+        while (head != null && m != 1) {
+            target = head;
+            m--;
+            n--;
+            head = head.next;
+        }
 
-        /*
-        思路是A半径和B半径之和为大圆半径，以B为圆心，X^2 + Y^2 = R^2，的解即为A圆心的运动轨迹，
+        ListNode curr = head;
 
-        求此方程与直线方程AP的解，转化为求二次方程解，根据解个数判断是否相交（相离为-1，相交或相切为1）
-         */
+        while (head != null && n != 0) {
+            temp = head.next;
+            head.next = prev;
+            prev = head;
+            head = temp;
+            n--;
+        }
 
-        return -1;
+        curr.next = head;
+        target.next = prev;
+
+        return dummy.next;
     }
 
     /*
@@ -1353,42 +1390,5 @@ public class Solution {
             res = Math.max(res, left[i + 1] + right[i]);
 
         return res;
-    }
-
-    /*
-    36. 翻转链表 II
-
-    翻转链表中第m个节点到第n个节点的部分
-
-    1. m，n满足1 ≤ m ≤ n ≤ 链表长度
-     */
-    public ListNode reverseBetween(ListNode head, int m, int n) {
-        // write your code here
-        if (head == null) return null;
-
-        ListNode dummy = new ListNode(-1), prev = null, temp, target = dummy;
-        dummy.next = head;
-
-        while (head != null && m != 1) {
-            target = head;
-            m--;
-            n--;
-            head = head.next;
-        }
-
-        ListNode curr = head;
-
-        while (head != null && n != 0) {
-            temp = head.next;
-            head.next = prev;
-            prev = head;
-            head = temp;
-            n--;
-        }
-
-        curr.next = head;
-        target.next = prev;
-
-        return dummy.next;
     }
 }

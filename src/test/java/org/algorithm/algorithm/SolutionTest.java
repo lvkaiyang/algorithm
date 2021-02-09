@@ -539,6 +539,22 @@ public class SolutionTest {
     }
 
     @Test
+    public void IfIntersect() {
+
+        double[] position = new double[]{0, 0, 2.5, 3, 2, 0.5, 0, 2};
+
+        int res = solution.IfIntersect(position);
+
+        Assert.assertEquals(1, res);
+
+        position = new double[]{0, 0, 2, 5, 0, 1, 0, 2};
+
+        res = solution.IfIntersect(position);
+
+        Assert.assertEquals(-1, res);
+    }
+
+    @Test
     public void isInterleave() {
         boolean res = solution.isInterleave("aabcc", "dbbca", "aadbbcbcac");
 
@@ -627,22 +643,6 @@ public class SolutionTest {
         res = solution.reverseBetween(head, 3, 5);
 
         Assert.assertEquals("1->2->5->4->3->null", ListNodeUtil.serialize(res));
-    }
-
-    @Test
-    public void IfIntersect() {
-
-        double[] position = new double[]{0, 0, 2.5, 3, 2, 0.5, 0, 2};
-
-        int res = solution.IfIntersect(position);
-
-        Assert.assertEquals(1, res);
-
-        position = new double[]{0, 0, 2, 5, 0, 1, 0, 2};
-
-        res = solution.IfIntersect(position);
-
-        Assert.assertEquals(-1, res);
     }
 
     @Test
