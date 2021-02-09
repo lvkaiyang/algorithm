@@ -1379,9 +1379,9 @@ public class Solution {
         }
 
         // 打擂台，找到前i个数中最大和以及后size - i - 1个数中最大和（动态规划）
-        for (int i = 1; i < size; i++) {
-            right[i] = Math.max(right[i], right[i - 1]);
-            left[size - i - 1] = Math.max(left[size - i - 1], left[size - i]);
+        for (int i = 0; i < size - 1; i++) {
+            right[i + 1] = Math.max(right[i + 1], right[i]);
+            left[size - i - 2] = Math.max(left[size - i - 2], left[size - i - 1]);
         }
 
         // 前i个最大和 + 后i + 1个最大和
@@ -1390,5 +1390,50 @@ public class Solution {
             res = Math.max(res, left[i + 1] + right[i]);
 
         return res;
+    }
+
+    /*
+    45. 最大子数组差
+
+    给定一个整数数组，找出两个不重叠的子数组A和B，使两个子数组和的差的绝对值|SUM(A) - SUM(B)|最大。
+
+    返回这个最大的差值。
+
+    1. 子数组最少包含一个数
+     */
+    public int maxDiffSubArrays(int[] nums) {
+        // write your code here
+        int ans = Integer.MIN_VALUE;
+
+        if (nums == null || nums.length < 1) return ans;
+
+        int size = nums.length;
+        int[] leftMax = new int[size], leftMin = new int[size], rightMax = new int[size], rightMin = new int[size];
+
+        leftMax[size - 1] = leftMin[size - 1] = nums[size - 1];
+        rightMax[0] = rightMin[0] = nums[0];
+
+        for (int i = 0; i < size - 1; i++) {
+            rightMax[i + 1] = Math.max(rightMax[i] + nums[i + 1], nums[i + 1]);
+            rightMin[i + 1] = Math.min(rightMin[i] + nums[i + 1], nums[i + 1]);
+            leftMax[size - i - 2] = Math.max(leftMax[size - i - 1] + nums[size - i - 2], nums[size - i - 2]);
+            leftMin[size - i - 2] = Math.min(leftMin[size - i - 1] + nums[size - i - 2], nums[size - i - 2]);
+        }
+
+        for (int i = 0; i < size - 1; i++) {
+            rightMax[i + 1] = Math.max(rightMax[i + 1], rightMax[i]);
+            rightMin[i + 1] = Math.min(rightMin[i + 1], rightMin[i]);
+            leftMax[size - i - 2] = Math.max(leftMax[size - i - 2], leftMax[size - i - 1]);
+            leftMin[size - i - 2] = Math.min(leftMin[size - i - 2], leftMin[size - i - 1]);
+        }
+
+        for (int i = 0; i < size - 1; i++) {
+            ans = Math.max(ans, Math.abs(rightMax[i] - leftMax[i + 1]));
+            ans = Math.max(ans, Math.abs(rightMax[i] - leftMin[i + 1]));
+            ans = Math.max(ans, Math.abs(rightMin[i] - leftMax[i + 1]));
+            ans = Math.max(ans, Math.abs(rightMin[i] - leftMin[i + 1]));
+        }
+
+        return ans;
     }
 }

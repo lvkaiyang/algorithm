@@ -659,4 +659,15 @@ public class SolutionTest {
 
         Assert.assertEquals(-1, solution.maxTwoSubArrays(nums));
     }
+
+    @Test
+    public void maxDiffSubArrays() {
+        int[] nums = new int[]{1, 2, -3, 1};
+
+        Assert.assertEquals(6, solution.maxDiffSubArrays(nums));
+
+        nums = new int[]{0, -1};
+
+        Assert.assertEquals(1, solution.maxDiffSubArrays(nums));
+    }
 }
