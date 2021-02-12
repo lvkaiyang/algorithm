@@ -1436,4 +1436,46 @@ public class Solution {
 
         return ans;
     }
+
+    /*
+    47. 主元素 II
+
+    给定一个整型数组，找到主元素，它在数组中的出现次数严格大于数组元素个数的三分之一。
+
+    1. 数组中只有唯一的主元素
+     */
+    public int majorityNumber(List<Integer> nums) {
+        // write your code here
+        if (nums == null || nums.size() == 0) return Integer.MIN_VALUE;
+
+        if (nums.size() < 3) return nums.get(0);
+
+        int cnt_1 = 0, cnt_2 = 0, target_1 = 1, target_2 = -1;
+
+        for (int num : nums) {
+            if (num == target_1) {
+                cnt_1++;
+            } else if (num == target_2) {
+                cnt_2++;
+            } else if (cnt_1 == 0) {
+                target_1 = num;
+                cnt_1++;
+            } else if (cnt_2 == 0) {
+                target_2 = num;
+                cnt_2++;
+            } else {
+                cnt_1--;
+                cnt_2--;
+            }
+        }
+
+        cnt_1 = cnt_2 = 0;
+
+        for (int num : nums) {
+            if (target_1 == num) cnt_1++;
+            if (target_2 == num) cnt_2++;
+        }
+
+        return cnt_1 >= cnt_2 ? target_1 : target_2;
+    }
 }

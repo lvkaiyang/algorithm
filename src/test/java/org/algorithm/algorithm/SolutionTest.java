@@ -670,4 +670,23 @@ public class SolutionTest {
 
         Assert.assertEquals(1, solution.maxDiffSubArrays(nums));
     }
+
+    @Test
+    public void majorityNumber() {
+        List<Integer> nums = new ArrayList<>(Arrays.asList(99, 2, 99, 2, 99, 3, 3));
+
+        Assert.assertEquals(99, solution.majorityNumber(nums));
+
+        nums = new ArrayList<>(Arrays.asList(1, 2, 1, 2, 1, 3, 3));
+
+        Assert.assertEquals(1, solution.majorityNumber(nums));
+
+        nums = new ArrayList<>(Arrays.asList(1, 1, 1, 1, 2, 2, 3, 3, 4, 4, 4));
+
+        Assert.assertEquals(1, solution.majorityNumber(nums));
+
+        nums = new ArrayList<>(Arrays.asList(2, 3, 4, 2, 3, 4, 1, 4, 1, 1, 4));
+
+        Assert.assertEquals(4, solution.majorityNumber(nums));
+    }
 }
