@@ -1478,4 +1478,28 @@ public class Solution {
 
         return cnt_1 >= cnt_2 ? target_1 : target_2;
     }
+
+    /*
+    48. 主元素 III
+
+    给定一个整型数组，找到主元素，它在数组中的出现次数严格大于数组元素个数的1/k。
+
+    1.数组中只有唯一的主元素
+     */
+    public int majorityNumber(List<Integer> nums, int k) {
+        // write your code here
+        if (nums == null || nums.size() < 1 || k < 0) return Integer.MIN_VALUE;
+
+        Map<Integer, Integer> target_count = new HashMap<>();
+        int size = nums.size() / k;
+
+        for (int num : nums)
+            target_count.put(num, target_count.getOrDefault(num, 0) + 1);
+
+        for (Map.Entry<Integer, Integer> entry : target_count.entrySet())
+            if (entry.getValue() > size)
+                return entry.getKey();
+
+        return Integer.MIN_VALUE;
+    }
 }

@@ -672,7 +672,7 @@ public class SolutionTest {
     }
 
     @Test
-    public void majorityNumber() {
+    public void majorityNumberII() {
         List<Integer> nums = new ArrayList<>(Arrays.asList(99, 2, 99, 2, 99, 3, 3));
 
         Assert.assertEquals(99, solution.majorityNumber(nums));
@@ -688,5 +688,18 @@ public class SolutionTest {
         nums = new ArrayList<>(Arrays.asList(2, 3, 4, 2, 3, 4, 1, 4, 1, 1, 4));
 
         Assert.assertEquals(4, solution.majorityNumber(nums));
+    }
+
+    @Test
+    public void majorityNumberIII() {
+        List<Integer> nums = new ArrayList<>(Arrays.asList(3, 1, 2, 3, 2, 3, 3, 4, 4, 4));
+        int k = 3;
+
+        Assert.assertEquals(3, solution.majorityNumber(nums, k));
+
+        nums = new ArrayList<>(Arrays.asList(1, 1, 2));
+        k = 3;
+
+        Assert.assertEquals(1, solution.majorityNumber(nums, k));
     }
 }
