@@ -1502,4 +1502,70 @@ public class Solution {
 
         return Integer.MIN_VALUE;
     }
+
+    /*
+    快速排序算法
+     */
+    public void quickSort(int[] nums) {
+
+        if (nums == null || nums.length == 0) return;
+
+        quickSort_helper(0, nums.length - 1, nums);
+    }
+
+    public void quickSort_helper(int start, int end, int[] nums) {
+        if (start >= end) return;
+
+        int pivot = nums[start + (end - start) / 2];
+        int left = start, right = end;
+
+        while (left <= right) {
+            while (left <= right && nums[left] < pivot) left++;
+            while (left <= right && nums[right] > pivot) right--;
+            if (left <= right) {
+                int temp = nums[left];
+                nums[left] = nums[right];
+                nums[right] = temp;
+                left++;
+                right--;
+            }
+        }
+
+        quickSort_helper(start, right, nums);
+        quickSort_helper(left, end, nums);
+    }
+
+    /*
+    外排序算法
+     */
+    public void mergeSort(int[] nums) {
+
+        if (nums == null || nums.length == 0) return;
+
+        mergeSort_helper(0, nums.length - 1, new int[nums.length], nums);
+    }
+
+    public void mergeSort_helper(int start, int end, int[] temp, int[] nums) {
+
+        if (start >= end) return;
+
+        int pivot = start + (end - start) / 2;
+        int left = start, right = pivot + 1;
+        int idx = start;
+        mergeSort_helper(start, pivot, temp, nums);
+        mergeSort_helper(pivot + 1, end, temp, nums);
+
+        while (left <= pivot && right <= end) {
+            if (nums[left] <= nums[right]) {
+                temp[idx++] = nums[left++];
+            } else {
+                temp[idx++] = nums[right++];
+            }
+        }
+
+        while (left <= pivot) temp[idx++] = nums[left++];
+        while (right <= end) temp[idx++] = nums[right++];
+
+        for (idx = start; idx <= end; idx++) nums[idx] = temp[idx];
+    }
 }

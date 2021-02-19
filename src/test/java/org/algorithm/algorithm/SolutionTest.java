@@ -702,4 +702,22 @@ public class SolutionTest {
 
         Assert.assertEquals(1, solution.majorityNumber(nums, k));
     }
+
+    @Test
+    public void quickSort() {
+        int[] nums = new int[]{5, 3, 2, 1, 6, 2, 3};
+
+        solution.quickSort(nums);
+
+        Assert.assertArrayEquals(new int[]{1, 2, 2, 3, 3, 5, 6}, nums);
+    }
+
+    @Test
+    public void mergeSort() {
+        int[] nums = new int[]{5, 3, 2, 1, 6, 2, 3};
+
+        solution.mergeSort(nums);
+
+        Assert.assertArrayEquals(new int[]{1, 2, 2, 3, 3, 5, 6}, nums);
+    }
 }
