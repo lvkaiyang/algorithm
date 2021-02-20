@@ -720,4 +720,20 @@ public class SolutionTest {
 
         Assert.assertArrayEquals(new int[]{1, 2, 2, 3, 3, 5, 6}, nums);
     }
+
+    @Test
+    public void sortLetters() {
+        // write your code here
+        char[] chars = "abAcD".toCharArray();
+
+        solution.sortLetters(chars);
+
+        Assert.assertArrayEquals("abcAD".toCharArray(), chars);
+
+        chars = "ABC".toCharArray();
+
+        solution.sortLetters(chars);
+
+        Assert.assertArrayEquals("ABC".toCharArray(), chars);
+    }
 }

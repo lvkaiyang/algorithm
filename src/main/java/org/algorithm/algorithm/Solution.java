@@ -1504,6 +1504,32 @@ public class Solution {
     }
 
     /*
+    49. 字符大小写排序
+
+    给定一个只包含字母的字符串，按照先小写字母后大写字母的顺序进行排序。
+
+    1. 小写字母或者大写字母他们之间不一定要保持在原始字符串中的相对位置。
+     */
+    public void sortLetters(char[] chars) {
+        // write your code here
+        if (chars == null || chars.length == 0) return;
+
+        int left = 0, right = chars.length - 1;
+
+        while (left <= right) {
+            while (left <= right && chars[left] >= 'a' && chars[left] <= 'z') left++;
+            while (left <= right && chars[right] >= 'A' && chars[right] <= 'Z') right--;
+            if (left <= right) {
+                char temp = chars[left];
+                chars[left] = chars[right];
+                chars[right] = temp;
+                left++;
+                right--;
+            }
+        }
+    }
+
+    /*
     快速排序算法
      */
     public void quickSort(int[] nums) {
