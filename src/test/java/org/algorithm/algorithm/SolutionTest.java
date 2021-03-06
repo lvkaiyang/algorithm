@@ -736,4 +736,46 @@ public class SolutionTest {
 
         Assert.assertArrayEquals("ABC".toCharArray(), chars);
     }
+
+    @Test
+    public void fourSum() {
+        int[] numbers = new int[]{2, 7, 11, 15};
+        int target = 3;
+
+        Assert.assertEquals(new ArrayList<List<Integer>>(), solution.fourSum(numbers, target));
+
+        numbers = new int[]{1, 0, -1, 0, -2, 2};
+        target = 0;
+
+        Assert.assertEquals(
+                new ArrayList<>(Arrays.asList(
+                        Arrays.asList(-2, -1, 1, 2), Arrays.asList(-2, 0, 0, 2), Arrays.asList(-1, 0, 0, 1)
+                )),
+                solution.fourSum(numbers, target)
+        );
+
+        numbers = new int[]{-5, -3, -2, 1, 2, 2, 3, 4, 9};
+        target = 1;
+
+        Assert.assertEquals(
+                new ArrayList<>(Arrays.asList(
+                        Arrays.asList(-5, 1, 2, 3), Arrays.asList(-3, -2, 2, 4)
+                )),
+                solution.fourSum(numbers, target)
+        );
+    }
+
+    @Test
+    public void threeSumClosest() {
+        // write your code here
+        int[] numbers = new int[]{2, 7, 11, 15};
+        int target = 3;
+
+        Assert.assertEquals(20, solution.threeSumClosest(numbers, target));
+
+        numbers = new int[]{-1, 2, 1, -4};
+        target = 1;
+
+        Assert.assertEquals(2, solution.threeSumClosest(numbers, target));
+    }
 }

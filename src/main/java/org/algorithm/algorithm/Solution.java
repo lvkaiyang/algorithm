@@ -1594,4 +1594,85 @@ public class Solution {
 
         for (idx = start; idx <= end; idx++) nums[idx] = temp[idx];
     }
+
+    /*
+    58. 四数之和
+
+    给一个包含n个数的整数数组S，在S中找到所有使得和为给定整数target的四元组(a, b, c, d)。
+
+    1. 四元组(a, b, c, d)中，需要满足a <= b <= c <= d
+
+    2. 答案中不可以包含重复的四元组。
+     */
+    public List<List<Integer>> fourSum(int[] numbers, int target) {
+        // write your code here
+        List<List<Integer>> ans = new ArrayList<>();
+        if (numbers == null || numbers.length < 4) return ans;
+
+        Arrays.sort(numbers);
+
+        for (int i = 0; i < numbers.length; i++) {
+            if (i > 0 && numbers[i] == numbers[i - 1]) continue;
+            for (int j = i + 1; j < numbers.length; j++) {
+                if (j > i + 1 && numbers[j] == numbers[j - 1]) continue;
+                int requireSum = target - (numbers[i] + numbers[j]);
+                for (int k = j + 1, l = numbers.length - 1; k < l; ) {
+                    while (k < l && k > j + 1 && numbers[k] == numbers[k - 1]) k++;
+                    while (k < l && l < numbers.length - 1 && numbers[l] == numbers[l + 1]) l--;
+                    if (k < l) {
+                        int subSum = numbers[k] + numbers[l];
+                        if (subSum < requireSum) {
+                            k++;
+                        } else if (subSum == requireSum) {
+                            ans.add(Arrays.asList(numbers[i], numbers[j], numbers[k], numbers[l]));
+                            k++;
+                            l--;
+                        } else {
+                            l--;
+                        }
+                    }
+                }
+            }
+        }
+
+        return ans;
+    }
+
+    /*
+    59. 最接近的三数之和
+
+    给一个包含 n 个整数的数组 S, 找到和与给定整数 target 最接近的三元组，返回这三个数的和。
+
+    1. 只需要返回三元组之和，无需返回三元组本身
+     */
+    public int threeSumClosest(int[] numbers, int target) {
+        // write your code here
+        int ans = Integer.MIN_VALUE;
+        if (numbers == null || numbers.length < 2) return ans;
+
+        Arrays.sort(numbers);
+
+        for (int i = 0; i < numbers.length; i++) {
+            if (i > 0 && numbers[i] == numbers[i - 1]) continue;
+            for (int j = i + 1, k = numbers.length - 1; j < k;) {
+                while (j < k && j > i + 1 && numbers[j] == numbers[j - 1]) j++;
+                while (j < k && k < numbers.length - 1 && numbers[k] == numbers[k + 1]) k--;
+                if (j < k) {
+                    if (target - numbers[i] > numbers[j] + numbers[k]) {
+                        if (Math.abs(target - ans) > Math.abs(target - numbers[i] - numbers[j] - numbers[k]))
+                            ans = numbers[i] + numbers[j] + numbers[k];
+                        j++;
+                    } else if (target - numbers[i] == numbers[j] + numbers[k]) {
+                        return target;
+                    } else {
+                        if (Math.abs(target - ans) > Math.abs(target - numbers[i] - numbers[j] - numbers[k]))
+                            ans = numbers[i] + numbers[j] + numbers[k];
+                        k--;
+                    }
+                }
+            }
+        }
+
+        return ans;
+    }
 }
