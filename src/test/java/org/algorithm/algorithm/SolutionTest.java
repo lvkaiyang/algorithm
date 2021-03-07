@@ -778,4 +778,17 @@ public class SolutionTest {
 
         Assert.assertEquals(2, solution.threeSumClosest(numbers, target));
     }
+
+    @Test
+    public void search() {
+        int[] A = new int[]{4, 5, 1, 2, 3};
+        int target = 1;
+
+        Assert.assertEquals(2, solution.search(A, target));
+
+        A = new int[]{4, 5, 1, 2, 3};
+        target = 0;
+
+        Assert.assertEquals(-1, solution.search(A, target));
+    }
 }
