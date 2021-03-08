@@ -791,4 +791,22 @@ public class SolutionTest {
 
         Assert.assertEquals(-1, solution.search(A, target));
     }
+
+    @Test
+    public void levelOrderBottom() {
+        // write your code here
+        TreeNode root = TreeNodeUtil.deserialize("{1,2,3}");
+
+        Assert.assertEquals(Arrays.asList(
+                Arrays.asList(2, 3), Collections.singletonList(1)
+        ), solution.levelOrderBottom(root));
+
+
+        root = TreeNodeUtil.deserialize("{3,9,20,#,#,15,7}");
+
+        Assert.assertEquals(Arrays.asList(
+                Arrays.asList(15, 7), Arrays.asList(9, 20), Collections.singletonList(3)
+        ), solution.levelOrderBottom(root));
+
+    }
 }

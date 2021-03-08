@@ -1727,4 +1727,32 @@ public class Solution {
 
         return ans;
     }
+
+    /*
+    70. 二叉树的层次遍历 II
+
+    给出一棵二叉树，返回其节点值从底向上的层次序遍历（按从叶节点所在层到根节点所在的层遍历，然后逐层从左往右遍历）
+     */
+    public List<List<Integer>> levelOrderBottom(TreeNode root) {
+        // write your code here
+        List<List<Integer>> ans = new ArrayList<>();
+        if (root == null) return ans;
+
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.offer(root);
+
+        while (!queue.isEmpty()) {
+            int size = queue.size();
+            List<Integer> subList = new ArrayList<>();
+            for (int i = 0; i < size; i++) {
+                TreeNode curr = queue.poll();
+                subList.add(curr.val);
+                if (curr.left != null) queue.offer(curr.left);
+                if (curr.right != null) queue.offer(curr.right);
+            }
+            ans.add(0, subList);
+        }
+
+        return ans;
+    }
 }
