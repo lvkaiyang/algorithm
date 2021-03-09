@@ -1755,4 +1755,38 @@ public class Solution {
 
         return ans;
     }
+
+    /*
+    71. 二叉树的锯齿形层次遍历
+
+    给出一棵二叉树，返回其节点值的锯齿形层次遍历（先从左往右，下一层再从右往左，层与层之间交替进行）
+     */
+    public List<List<Integer>> zigzagLevelOrder(TreeNode root) {
+        // write your code here
+        List<List<Integer>> ans = new ArrayList<>();
+        if (root == null) return ans;
+
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.offer(root);
+
+        while (!queue.isEmpty()) {
+            int size = queue.size();
+            List<Integer> subList = new ArrayList<>();
+
+            for (int i = 0; i < size; i++) {
+                TreeNode curr = queue.poll();
+                if (curr.left != null) queue.offer(curr.left);
+                if (curr.right != null) queue.offer(curr.right);
+
+                if (ans.size() % 2 == 0) {
+                    subList.add(curr.val);
+                } else {
+                    subList.add(0, curr.val);
+                }
+            }
+            ans.add(subList);
+        }
+
+        return ans;
+    }
 }

@@ -809,4 +809,27 @@ public class SolutionTest {
         ), solution.levelOrderBottom(root));
 
     }
+
+    @Test
+    public void zigzagLevelOrder() {
+        // write your code here
+        TreeNode root = TreeNodeUtil.deserialize("{1,2,3}");
+
+        Assert.assertEquals(Arrays.asList(
+                Collections.singletonList(1), Arrays.asList(3, 2)
+        ), solution.zigzagLevelOrder(root));
+
+        root = TreeNodeUtil.deserialize("{3,9,20,#,#,15,7}");
+
+        Assert.assertEquals(Arrays.asList(
+                Collections.singletonList(3), Arrays.asList(20, 9), Arrays.asList(15, 7)
+        ), solution.zigzagLevelOrder(root));
+
+        root = TreeNodeUtil.deserialize("{1,2,3,4,#,#,5,#,#,6,7,#,#,#,8}");
+
+        Assert.assertEquals(Arrays.asList(
+                Collections.singletonList(1), Arrays.asList(3, 2), Arrays.asList(4, 5),
+                Arrays.asList(7, 6), Collections.singletonList(8)
+        ), solution.zigzagLevelOrder(root));
+    }
 }
