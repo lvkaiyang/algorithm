@@ -832,4 +832,40 @@ public class SolutionTest {
                 Arrays.asList(7, 6), Collections.singletonList(8)
         ), solution.zigzagLevelOrder(root));
     }
+
+    @Test
+    public void buildTree() {
+        int[] inorder = new int[]{};
+        int[] postorder = new int[]{};
+
+        Assert.assertNull(TreeNodeUtil.serialize(solution.buildTree(inorder, postorder)));
+
+        inorder = new int[]{1, 2, 3};
+        postorder = new int[]{1, 3, 2};
+
+        Assert.assertEquals("{2,1,3}", TreeNodeUtil.serialize(solution.buildTree(inorder, postorder)));
+
+        inorder = new int[]{1, 2, 3};
+        postorder = new int[]{3, 2, 1};
+
+        Assert.assertEquals("{1,#,2,#,3}", TreeNodeUtil.serialize(solution.buildTree(inorder, postorder)));
+
+        inorder = new int[]{3, 2, 4, 1, 6, 5, 7};
+        postorder = new int[]{3, 4, 2, 6, 7, 5, 1};
+
+        Assert.assertEquals("{1,2,5,3,4,6,7}", TreeNodeUtil.serialize(solution.buildTree(inorder, postorder)));
+    }
+
+    @Test
+    public void buildTree_1() {
+        int[] preorder = new int[]{};
+        int[] inorder = new int[]{};
+
+        Assert.assertNull(TreeNodeUtil.serialize(solution.buildTree_1(preorder, inorder)));
+
+        preorder = new int[]{2, 1, 3};
+        inorder = new int[]{1, 2, 3};
+
+        Assert.assertEquals("{2,1,3}", TreeNodeUtil.serialize(solution.buildTree_1(preorder, inorder)));
+    }
 }

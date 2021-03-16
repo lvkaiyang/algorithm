@@ -6,6 +6,7 @@ import org.algorithm.algorithm.structures.basic.UndirectedGraphNode;
 import org.algorithm.algorithm.structures.custom.GetModifiedArrayInterval;
 import org.algorithm.algorithm.structures.custom.LongestConsecutive2ResultType;
 import org.algorithm.algorithm.structures.custom.ShortestPathPoint;
+import org.algorithm.algorithm.utils.TreeNodeUtil;
 
 import java.util.*;
 
@@ -1788,5 +1789,95 @@ public class Solution {
         }
 
         return ans;
+    }
+
+    /*
+    72. 中序遍历和后序遍历树构造二叉树
+
+    根据中序遍历和后序遍历树构造二叉树
+
+    1. 你可以假设树中不存在相同数值的节点
+     */
+    public TreeNode buildTree(int[] inorder, int[] postorder) {
+        // write your code here
+        TreeNode ans = null;
+        if (inorder == null || inorder.length == 0) return ans;
+        if (postorder == null || postorder.length == 0) return ans;
+
+        Map<Integer, Integer> inorderMap = new HashMap<>();
+
+        for (int i = 0; i < inorder.length; i++) inorderMap.put(inorder[i], i);
+
+        ans = buildTree_helper(
+                0, inorder.length - 1, new int[]{postorder.length - 1}, inorder, postorder, inorderMap
+        );
+
+        return ans;
+    }
+
+    private TreeNode buildTree_helper(
+            int start, int end, int[] postorderIdx, int[] inorder, int[] postorder, Map<Integer, Integer> inorderMap
+    ) {
+        if (start > end) return null;
+        if (start == end) {
+            postorderIdx[0] = postorderIdx[0] - 1;
+            return new TreeNode(inorder[start]);
+        }
+
+        int rootVal = postorder[postorderIdx[0]];
+        int rootIdx = inorderMap.get(rootVal);
+        if (rootIdx < start || rootIdx > end) return null;
+        TreeNode root = new TreeNode(rootVal);
+
+        postorderIdx[0] = postorderIdx[0] - 1;
+        root.right = buildTree_helper(rootIdx + 1, end, postorderIdx, inorder, postorder, inorderMap);
+        root.left = buildTree_helper(start, rootIdx - 1, postorderIdx, inorder, postorder, inorderMap);
+
+        return root;
+    }
+
+    /*
+    73. 前序遍历和中序遍历树构造二叉树
+
+    根据前序遍历和中序遍历树构造二叉树.
+
+    1. 你可以假设树中不存在相同数值的节点
+     */
+    public TreeNode buildTree_1(int[] preorder, int[] inorder) {
+        // write your code here
+        TreeNode ans = null;
+        if (preorder == null || preorder.length == 0) return ans;
+        if (inorder == null || inorder.length == 0) return ans;
+
+        Map<Integer, Integer> inorderMap = new HashMap<>();
+
+        for (int i = 0; i < inorder.length; i++) inorderMap.put(inorder[i], i);
+
+        ans = buildTree_1_helper(
+                0, inorder.length - 1, new int[]{0}, preorder, inorder, inorderMap
+        );
+
+        return ans;
+    }
+
+    private TreeNode buildTree_1_helper(
+            int start, int end, int[] preorderIdx, int[] preorder, int[] inorder, Map<Integer, Integer> inorderMap
+    ) {
+        if (start > end) return null;
+        if (start == end) {
+            preorderIdx[0] = preorderIdx[0] + 1;
+            return new TreeNode(inorder[start]);
+        }
+
+        int rootVal = preorder[preorderIdx[0]];
+        int rootIdx = inorderMap.get(rootVal);
+        if (rootIdx < start || rootIdx > end) return null;
+        TreeNode root = new TreeNode(rootVal);
+
+        preorderIdx[0] = preorderIdx[0] + 1;
+        root.left = buildTree_1_helper(start, rootIdx - 1, preorderIdx, preorder, inorder, inorderMap);
+        root.right = buildTree_1_helper(rootIdx + 1, end, preorderIdx, preorder, inorder, inorderMap);
+
+        return root;
     }
 }
