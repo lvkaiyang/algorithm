@@ -868,4 +868,17 @@ public class SolutionTest {
 
         Assert.assertEquals("{2,1,3}", TreeNodeUtil.serialize(solution.buildTree_1(preorder, inorder)));
     }
+
+    @Test
+    public void longestCommonSubstring() {
+        String A = "ABCD";
+        String B = "CBCE";
+
+        Assert.assertEquals(2, solution.longestCommonSubstring(A, B));
+
+        A = "ABCD";
+        B = "EACB";
+
+        Assert.assertEquals(1, solution.longestCommonSubstring(A, B));
+    }
 }

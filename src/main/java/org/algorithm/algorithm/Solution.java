@@ -1880,4 +1880,39 @@ public class Solution {
 
         return root;
     }
+
+    /*
+    79. 最长公共子串
+
+    给出两个字符串，找到最长公共子串，并返回其长度。
+
+    1. 子串的字符应该连续的出现在原字符串中，这与子序列有所不同。
+     */
+    public int longestCommonSubstring(String A, String B) {
+        // write your code here
+        int ans = 0;
+        if (A == null || A.length() == 0) return ans;
+        if (B == null || B.length() == 0) return ans;
+
+        int[][] dp = new int[A.length() + 1][B.length() + 1];
+
+        for (int i = 0; i < A.length() + 1; i++) dp[i][0] = 0;
+        for (int i = 0; i < B.length() + 1; i++) dp[0][i] = 0;
+
+        for (int i = 1; i < A.length() + 1; i++) {
+            for (int j = 1; j < B.length() + 1; j++) {
+                if (A.charAt(i - 1) == B.charAt(j - 1)) {
+                    dp[i][j] = dp[i - 1][j - 1] + 1;
+                }
+            }
+        }
+
+        for (int i = 1; i < A.length() + 1; i++) {
+            for (int j = 1; j < B.length() + 1; j++) {
+                ans = Math.max(ans, dp[i][j]);
+            }
+        }
+
+        return ans;
+    }
 }
