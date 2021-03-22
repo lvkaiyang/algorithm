@@ -870,6 +870,19 @@ public class SolutionTest {
     }
 
     @Test
+    public void longestCommonSubsequence() {
+        String A = "ABCD";
+        String B = "EDCA";
+
+        Assert.assertEquals(1, solution.longestCommonSubsequence(A, B));
+
+        A = "ABCD";
+        B = "EACB";
+
+        Assert.assertEquals(2, solution.longestCommonSubsequence(A, B));
+    }
+
+    @Test
     public void longestCommonSubstring() {
         String A = "ABCD";
         String B = "CBCE";
