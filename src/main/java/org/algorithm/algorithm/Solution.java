@@ -6,7 +6,6 @@ import org.algorithm.algorithm.structures.basic.UndirectedGraphNode;
 import org.algorithm.algorithm.structures.custom.GetModifiedArrayInterval;
 import org.algorithm.algorithm.structures.custom.LongestConsecutive2ResultType;
 import org.algorithm.algorithm.structures.custom.ShortestPathPoint;
-import org.algorithm.algorithm.utils.TreeNodeUtil;
 
 import java.util.*;
 
@@ -1951,5 +1950,64 @@ public class Solution {
         }
 
         return ans;
+    }
+
+    /*
+    90. k数和 II
+
+    给定n个不同的正整数，整数k（1<= k <= n）以及一个目标数字。　　　　
+
+    在这n个数里面找出K个数，使得这K个数的和等于目标数字，你需要找出所有满足要求的方案。
+     */
+    public List<List<Integer>> kSumII(int[] A, int k, int targer) {
+        // write your code here
+        List<List<Integer>> ans = new ArrayList<>();
+        if (A == null || A.length == 0) return ans;
+        if (k < 1 || k > A.length) return ans;
+
+        if (k == 1)
+            for (int num : A)
+                if (num == targer) {
+                    ans.add(Collections.singletonList(num));
+                    return ans;
+                }
+
+        Arrays.sort(A);
+
+        kSumII_helper(A, 0, k, targer, 0, new ArrayList<>(), ans);
+
+        return ans;
+    }
+
+    private void kSumII_helper(
+            int[] A, int idx, int k, int target, int subSum, List<Integer> subAns, List<List<Integer>> ans
+    ) {
+
+        if (k == 2) {
+            for (int i = idx, j = A.length - 1; i < j; ) {
+                int curSum = A[i] + A[j] + subSum;
+                if (curSum == target) {
+                    List<Integer> curAns = new ArrayList<>(subAns);
+                    curAns.addAll(Arrays.asList(A[i], A[j]));
+                    ans.add(curAns);
+                    i++;
+                    j--;
+                } else if (curSum < target) {
+                    i++;
+                } else {
+                    j--;
+                }
+            }
+            return;
+        }
+
+        for (int i = idx; i < A.length; i++) {
+            subSum += A[i];
+            if (subSum >= target) break;
+            subAns.add(A[i]);
+            kSumII_helper(A, i + 1, k - 1, target, subSum, subAns, ans);
+            subAns.remove(subAns.size() - 1);
+            subSum -= A[i];
+        }
     }
 }

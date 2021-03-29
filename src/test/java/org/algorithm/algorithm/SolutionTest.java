@@ -894,4 +894,31 @@ public class SolutionTest {
 
         Assert.assertEquals(1, solution.longestCommonSubstring(A, B));
     }
+
+    @Test
+    public void kSumII() {
+        int[] A = new int[]{1, 2, 3, 4};
+        int k = 2;
+        int targer = 5;
+
+        Assert.assertEquals(Arrays.asList(Arrays.asList(1, 4), Arrays.asList(2, 3)), solution.kSumII(A, k, targer));
+
+        A = new int[]{1, 3, 4, 6};
+        k = 3;
+        targer = 8;
+
+        Assert.assertEquals(Collections.singletonList(Arrays.asList(1, 3, 4)), solution.kSumII(A, k, targer));
+
+        A = new int[]{1, 4, 3, 6};
+        k = 1;
+        targer = 3;
+
+        Assert.assertEquals(Collections.singletonList(Collections.singletonList(3)), solution.kSumII(A, k, targer));
+
+        A = new int[]{1, 2, 5, 8, 11, 13};
+        k = 3;
+        targer = 32;
+
+        Assert.assertEquals(Collections.singletonList(Arrays.asList(8, 11, 13)), solution.kSumII(A, k, targer));
+    }
 }
