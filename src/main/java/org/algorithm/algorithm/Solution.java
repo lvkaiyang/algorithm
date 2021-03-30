@@ -6,7 +6,6 @@ import org.algorithm.algorithm.structures.basic.UndirectedGraphNode;
 import org.algorithm.algorithm.structures.custom.GetModifiedArrayInterval;
 import org.algorithm.algorithm.structures.custom.LongestConsecutive2ResultType;
 import org.algorithm.algorithm.structures.custom.ShortestPathPoint;
-import sun.nio.cs.ext.MacHebrew;
 
 import java.util.*;
 
@@ -1655,7 +1654,7 @@ public class Solution {
 
         for (int i = 0; i < numbers.length; i++) {
             if (i > 0 && numbers[i] == numbers[i - 1]) continue;
-            for (int j = i + 1, k = numbers.length - 1; j < k;) {
+            for (int j = i + 1, k = numbers.length - 1; j < k; ) {
                 while (j < k && j > i + 1 && numbers[j] == numbers[j - 1]) j++;
                 while (j < k && k < numbers.length - 1 && numbers[k] == numbers[k + 1]) k--;
                 if (j < k) {
