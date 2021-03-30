@@ -921,4 +921,27 @@ public class SolutionTest {
 
         Assert.assertEquals(Collections.singletonList(Arrays.asList(8, 11, 13)), solution.kSumII(A, k, targer));
     }
+
+    @Test
+    public void MinAdjustmentCost() {
+        List<Integer> A = Arrays.asList(1, 4, 2, 3);
+        int target = 1;
+
+        Assert.assertEquals(2, solution.MinAdjustmentCost(A, target));
+
+        A = Arrays.asList(3, 5, 4, 7);
+        target = 2;
+
+        Assert.assertEquals(1, solution.MinAdjustmentCost(A, target));
+
+        A = Arrays.asList(12, 3, 7, 4, 5, 13, 2, 8, 4, 7, 6, 5, 7);
+        target = 2;
+
+        Assert.assertEquals(19, solution.MinAdjustmentCost(A, target));
+
+        A = Arrays.asList(11, 11, 3, 5, 11, 16, 12, 11, 15, 11, 16, 16, 16, 16, 16, 11, 16);
+        target = 0;
+
+        Assert.assertEquals(53, solution.MinAdjustmentCost(A, target));
+    }
 }

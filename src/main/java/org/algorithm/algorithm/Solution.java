@@ -6,6 +6,7 @@ import org.algorithm.algorithm.structures.basic.UndirectedGraphNode;
 import org.algorithm.algorithm.structures.custom.GetModifiedArrayInterval;
 import org.algorithm.algorithm.structures.custom.LongestConsecutive2ResultType;
 import org.algorithm.algorithm.structures.custom.ShortestPathPoint;
+import sun.nio.cs.ext.MacHebrew;
 
 import java.util.*;
 
@@ -2009,5 +2010,38 @@ public class Solution {
             subAns.remove(subAns.size() - 1);
             subSum -= A[i];
         }
+    }
+
+    /*
+    91. 最小调整代价
+
+    给一个整数数组，调整每个数的大小，使得相邻的两个数的差不大于一个给定的整数target，
+
+    调整每个数的代价为调整前后的差的绝对值，求调整代价之和最小是多少。
+
+    1. 你可以假设数组中每个整数都是正整数，且小于等于100。
+     */
+    public int MinAdjustmentCost(List<Integer> A, int target) {
+        // write your code here
+        if (A == null || A.size() == 0) return 0;
+
+        int[][] dp = new int[A.size() + 1][101];
+
+        for (int i = 1; i < dp.length; i++) {
+            for (int j = 0; j <= 100; j++) {
+                int min = Math.max(0, j - target);
+                int max = Math.min(100, j + target);
+                dp[i][j] = Integer.MAX_VALUE;
+                for (int k = min; k <= max; k++) {
+                    dp[i][j] = Math.min(dp[i - 1][k] + Math.abs(A.get(i - 1) - j), dp[i][j]);
+                }
+            }
+        }
+
+        int min = Integer.MAX_VALUE;
+        for (int i = 0; i <= 100; i++)
+            min = Math.min(dp[A.size()][i], min);
+
+        return min;
     }
 }
