@@ -5,6 +5,7 @@ import org.algorithm.algorithm.structures.basic.TreeNode;
 import org.algorithm.algorithm.structures.basic.UndirectedGraphNode;
 import org.algorithm.algorithm.structures.custom.GetModifiedArrayInterval;
 import org.algorithm.algorithm.structures.custom.LongestConsecutive2ResultType;
+import org.algorithm.algorithm.structures.custom.MaxPathSumResultType;
 import org.algorithm.algorithm.structures.custom.ShortestPathPoint;
 
 import java.util.*;
@@ -2042,5 +2043,57 @@ public class Solution {
             min = Math.min(dp[A.size()][i], min);
 
         return min;
+    }
+
+    /*
+    94 · 二叉树中的最大路径和
+
+    给出一棵二叉树，寻找一条路径使其路径和最大，路径可以在任一节点中开始和结束（路径和为两个节点之间所在路径上的节点权值之和）
+     */
+    public int maxPathSum(TreeNode root) {
+        // write your code here
+        if (root == null) return -1;
+
+        MaxPathSumResultType result = maxPathSum_helper(root);
+        int ans = Math.max(result.leftMax, result.rightMax);
+        ans = Math.max(ans, result.totalMax);
+
+        return ans;
+    }
+
+    private MaxPathSumResultType maxPathSum_helper(TreeNode root) {
+
+        if (root == null) return null;
+
+        MaxPathSumResultType left = maxPathSum_helper(root.left);
+        MaxPathSumResultType right = maxPathSum_helper(root.right);
+
+        int leftMax = Integer.MIN_VALUE, rightMax = Integer.MIN_VALUE, totalMax = Integer.MIN_VALUE;
+
+        if (left != null) {
+            leftMax = Math.max(left.leftMax + root.val, left.rightMax + root.val);
+            totalMax = Math.max(totalMax, left.totalMax);
+        }
+        leftMax = Math.max(root.val, leftMax);
+
+        if (right != null) {
+            rightMax = Math.max(right.leftMax + root.val, right.rightMax + root.val);
+            totalMax = Math.max(totalMax, right.totalMax);
+        }
+        rightMax = Math.max(root.val, rightMax);
+
+        if (left != null && right != null) {
+            int a = left.leftMax + root.val + right.leftMax;
+            int b = left.leftMax + root.val + right.rightMax;
+            int c = left.rightMax + root.val + right.leftMax;
+            int d = left.rightMax + root.val + right.rightMax;
+            totalMax = Math.max(totalMax, a);
+            totalMax = Math.max(totalMax, b);
+            totalMax = Math.max(totalMax, c);
+            totalMax = Math.max(totalMax, d);
+        }
+        totalMax = Math.max(root.val, totalMax);
+
+        return new MaxPathSumResultType(leftMax, rightMax, totalMax);
     }
 }

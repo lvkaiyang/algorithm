@@ -944,4 +944,19 @@ public class SolutionTest {
 
         Assert.assertEquals(53, solution.MinAdjustmentCost(A, target));
     }
+
+    @Test
+    public void maxPathSum() {
+        TreeNode root = TreeNodeUtil.deserialize("{2}");
+
+        Assert.assertEquals(2, solution.maxPathSum(root));
+
+        root = TreeNodeUtil.deserialize("{1,2,3}");
+
+        Assert.assertEquals(6, solution.maxPathSum(root));
+
+        root = TreeNodeUtil.deserialize("{-10,-20,#,#,-31,-24,-5,#,#,-6,-7,-8,-9}");
+
+        Assert.assertEquals(-5, solution.maxPathSum(root));
+    }
 }
