@@ -959,4 +959,31 @@ public class SolutionTest {
 
         Assert.assertEquals(-5, solution.maxPathSum(root));
     }
+
+    @Test
+    public void reorderList() {
+        ListNode head = ListNodeUtil.deserialize("1->2->3->4->null");
+
+        solution.reorderList(head);
+
+        Assert.assertEquals("1->4->2->3->null", ListNodeUtil.serialize(head));
+
+        head = ListNodeUtil.deserialize("1->2->3->4->5->null");
+
+        solution.reorderList(head);
+
+        Assert.assertEquals("1->5->2->4->3->null", ListNodeUtil.serialize(head));
+
+        head = ListNodeUtil.deserialize("1->null");
+
+        solution.reorderList(head);
+
+        Assert.assertEquals("1->null", ListNodeUtil.serialize(head));
+
+        head = ListNodeUtil.deserialize("1->2->null");
+
+        solution.reorderList(head);
+
+        Assert.assertEquals("1->2->null", ListNodeUtil.serialize(head));
+    }
 }

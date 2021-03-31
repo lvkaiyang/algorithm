@@ -2096,4 +2096,49 @@ public class Solution {
 
         return new MaxPathSumResultType(leftMax, rightMax, totalMax);
     }
+
+    /*
+    99 · 重排链表
+
+    给定一个单链表L: L0→L1→…→Ln-1→Ln,
+
+    重新排列后为：L0→Ln→L1→Ln-1→L2→Ln-2→…
+
+    必须在不改变节点值的情况下进行原地操作。
+     */
+    public void reorderList(ListNode head) {
+        // write your code here
+        if (head == null) return;
+        ListNode dummy = new ListNode(-1);
+        dummy.next = head;
+
+        ListNode walker = head, runner = head;
+        while (runner != null && runner.next != null) {
+            if (runner.next.next != null)
+                walker = walker.next;
+            runner = runner.next.next;
+        }
+
+        ListNode curr = walker.next, temp, prev = null;
+        while (curr != null) {
+            temp = curr.next;
+            curr.next = prev;
+            prev = curr;
+            curr = temp;
+        }
+
+        walker.next = null;
+        ListNode headNext, prevNext;
+
+        while (head != null && prev != null) {
+            headNext = head.next;
+            prevNext = prev.next;
+            head.next = prev;
+            prev.next = headNext;
+            head = headNext;
+            prev = prevNext;
+        }
+
+        head = dummy.next;
+    }
 }
