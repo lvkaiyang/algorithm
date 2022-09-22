@@ -127,7 +127,9 @@ public class FileUtils {
         private static boolean isExclusiveFile(File file, List<String> exclusiveFileNames) {
             if (file == null || file.getName().equals("")) return false;
             return exclusiveFileNames.stream().anyMatch(name -> {
-                if (name.startsWith("*")) {
+                if (name.equals("*.*")) {
+                    return file.getName().contains(".");
+                } else if (name.startsWith("*")) {
                     return file.getName().endsWith(name.substring(name.indexOf("*") + 1));
                 } else if (name.endsWith("*")) {
                     return file.getName().startsWith(name.substring(0, name.indexOf("*")));
